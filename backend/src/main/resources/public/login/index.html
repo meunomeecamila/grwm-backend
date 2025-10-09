@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRWM - Criar Conta</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="image-stack">
+            <!--Imagem de logo-->
+            <img src="img/logo.png" alt="Logo GRWM">
+        </div>
+
+        <div class="right">
+            <h2>O seu <b>guarda-roupa virtual</b> de forma<br>sustentável.</h2>
+            <p>Crie sua conta!</p>
+
+            <!-- 🔹 FORM ADICIONADO (sem alterar classes ou estrutura) -->
+            <form id="form-cadastro" action="/usuario" method="post">
+                <input type="text" id="username" name="username" placeholder="Usuário" required>
+                <input type="password" id="senha" name="senha" placeholder="Senha" required>
+                <button type="submit">Criar Conta</button>
+            </form>
+
+            <p>Já tem uma conta? <b><a href="login.html">Entrar</a></b></p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><b>© 2025 GRWM.</b> Todos os direitos reservados.</p>
+    </div>
+</body>
+
+</html>

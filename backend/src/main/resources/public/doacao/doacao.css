@@ -1,0 +1,659 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f7e9eb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 70px;
+  background-color: #f7e9eb; 
+  padding: 0 16px;
+}
+
+/*Logo canto esquerdo*/
+.logo {
+  height: 80px;
+  position: absolute;
+  left: 20px;  /* encosta no canto esquerdo*/
+  top: 50%;
+  transform: translateY(-50%); /* centraliza verticalmente */
+  margin-top: 30px;
+  z-index: 1000;
+  margin-left: 20px;
+}
+
+/* Título centralizado */
+.titulo {
+  height: 125px;   /* ajuste conforme sua imagem */
+  margin-top: 40px;
+}
+
+
+/*Side bar*/
+/* Sidebar oculta */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px; /* começa fora da tela */
+  width: 250px;
+  height: 100%;
+  background-color: #e4cfd3; /* um tom mais escuro que o fundo */
+  box-shadow: -2px 0 6px rgba(0,0,0,0.15);
+  transition: right 0.3s ease;
+  padding: 20px;
+  z-index: 1000;
+}
+
+/* Quando ativa */
+.sidebar.active {
+  left: 0;
+}
+
+/* Links da sidebar */
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar__nav a {
+  text-decoration: none;
+  color: #5c3d3f;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/*Site doacao
+.formulario{
+   background-color: #976868;
+   color: white;
+   width: 800px;
+   height: auto;
+   padding: 25px;
+   display: flex;
+   border-radius: 10px;
+   align-items: center;
+   justify-content: center;
+}
+
+#form-doacao p{
+  margin: 0;
+}
+
+.container{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+}
+
+.item p{
+  font-size: 20px;
+}
+
+/*Nome
+#form-nome input{
+  width: 600px;
+  height: 50px;
+  background-color: #B79595;
+  border-style: none;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+/*Tamanho
+#form-tamanho select{
+  width: 70px;
+  height: 50px;
+  background-color: #B79595;
+  border-style: none;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+/*Descricao
+#form-descricao textarea{
+  width: 600px;
+  height: 80px;
+  background-color: #B79595;
+  border-style: none;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+/*Categoria
+#form-categoria select{
+  width: 70px;
+  height: 50px;
+  background-color: #B79595;
+  border-style: none;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+/*Foto
+.form-foto label{
+  width: 200px;
+  height: 50px;
+  padding: 5px;
+  background-color: #B79595;
+  border-style: none;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#form-foto{
+  background-color: #B79595;
+  width: 150px;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type="file"]{
+  display: none;
+}
+
+.img-uploud i{
+   margin-right: 5px;
+}
+
+
+h4 {
+  margin-left: 30px;
+  size: 200px;
+  font-size: 20px;
+}
+}*/
+
+/*Formulario*/
+.doacao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+}
+
+.subtitulo {
+  margin-bottom: 32px;
+  text-align: center;
+  font-size: 24px;   
+  font-weight: 700;
+  color: #5c3d3f;
+}
+
+#form-doacao {
+  width: 100%;
+  max-width: 900px;              /* mais largo */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 28px;             /* mais espaço entre campos */
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
+#form-doacao p {
+  margin: 0 0 10px;
+  font-weight: 600;
+  font-size: 1.1rem;    /* maior título dos campos */
+  color: #5c3d3f;
+}
+
+/* Campos */
+#form-doacao input,
+#form-doacao select,
+#form-doacao textarea {
+  width: 100%;
+  height: 60px;                       /* altura maior */
+  font-size: 1rem;                    /* texto maior */
+  background: #f0e4e7;
+  border: 1px solid #e0c9d1;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: #5c3d3f;
+  outline: none;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+
+#form-doacao textarea {
+  min-height: 160px;                  /* textarea mais alto */
+  height: auto;
+  resize: vertical;
+}
+
+#form-doacao input::placeholder,
+#form-doacao textarea::placeholder {
+  color: #9f8088;
+  font-size: 0.95rem;
+}
+
+#form-doacao input:focus,
+#form-doacao select:focus,
+#form-doacao textarea:focus {
+  border-color: #dbacb8;
+  box-shadow: 0 0 0 3px rgba(219,172,184,.35);
+}
+
+/* Descrição ocupa linha toda */
+#form-descricao {
+  grid-column: 1 / -1;
+}
+
+/* Foto ocupa linha toda */
+.item:has(#form-foto) {
+  grid-column: 1 / -1;
+}
+
+#form-foto {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#form-foto label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 240px;
+  height: 60px;                       /* botão maior */
+  font-size: 1rem;
+  background: #dbacb8;
+  color: #3a2227;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0 20px;
+  border: 1px solid #c993a2;
+}
+
+#form-foto label i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+/* Botão enviar */
+.doacao > button {
+  margin-top: 32px;
+  width: 240px;
+  height: 60px;                       /* maior */
+  font-size: 1.1rem;                  /* texto maior */
+  background: #dbacb8;
+  color: #3a2227;
+  font-weight: 700;
+  border: 1px solid #c993a2;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: filter .2s ease, transform .1s ease;
+}
+
+.doacao > button:hover {
+  filter: brightness(.95);
+  transform: translateY(-2px);
+}
+
+.doacao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;   /* centraliza vertical também se quiser */
+}
+
+/* ===== Fix 1: isolar o grid do formulário do .container global ===== */
+#form-doacao.container{
+  margin: 0 auto !important;
+  max-width: 900px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 24px !important;                 /* respiro igual nos lados */
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important; /* evita overflow */
+  gap: 24px 28px !important;
+  align-items: start !important;
+  flex-wrap: initial !important;
+  flex-direction: initial !important;
+}
+
+/* ===== Fix 2: impedir que inputs “estourem” a coluna ===== */
+#form-doacao, 
+#form-doacao *{
+  box-sizing: border-box;
+}
+
+#form-doacao input,
+#form-doacao select,
+#form-doacao textarea{
+  width: 100%;
+  max-width: 100%;
+}
+
+/* linhas que devem ocupar 100% */
+#form-descricao{ grid-column: 1 / -1; }
+.item:has(#form-foto){ grid-column: 1 / -1; }
+
+/* ===== Fix 3: centralizar e reservar espaço para a sidebar fixa ===== */
+.doacao{
+  width: 100%;
+  display: flex;
+  justify-content: center;           /* centraliza o form no espaço restante */
+}
+
+@media (min-width: 1024px){
+  .doacao{ padding-right: 280px; }   /* 250px da sidebar + ~30px de folga */
+}
+
+/* (opcional) se não quiser a sidebar nesta tela, descomente: */
+ .profile-sidebar{ display: none; } 
+
+/* (correção pequena na sidebar) */
+.sidebar{ transition: left 0.3s ease; }  /* você usava 'right' */
+
+/* Responsivo */
+@media (max-width: 768px) {
+  #form-doacao {
+    grid-template-columns: 1fr;
+  }
+}
+
+.doacao {
+  position: relative;       /* referência pro pseudo-elemento */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* fundo branco atrás de todo o conteúdo */
+.doacao::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);   /* centraliza */
+  width: 100%;
+  max-width: 1000px;             /* controla a largura do container */
+  height: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  z-index: 0;                    /* fica atrás */
+}
+
+/* garante que o conteúdo do formulário fique por cima */
+.doacao > * {
+  position: relative;
+  z-index: 1;
+}
+
+/*Pagina doações*/
+section{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+section button{
+  margin: 15px;
+  width: 160px;
+  height: 60px;
+  font-size: 1.5em;
+  border-radius: 8px;
+  border-style: none;
+  background-color: #DBACB8;
+}
+
+.titulo-site{
+  padding-top: 50px;
+  color: #5c3d3f;
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+}
+
+.subtitulo {
+  margin-bottom: 32px;
+  text-align: center;
+  font-size: 1.5rem;     /* maior */
+  font-weight: 700;
+  color: #5c3d3f;
+}
+
+.search-container{
+  position: relative;
+}
+
+.search-container i{
+  position: absolute;
+  right: 20px;
+  top:68%; /*Alinha o topo no meio*/
+  color: #82204f;
+  font-size: 20px; 
+}
+
+.search-container input{
+  width: 600px;
+  padding: 10px 10px 10px 15px;
+  border-style: none;
+  border-radius: 6px;
+}
+
+.search-container input[type="search"]:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(219, 172, 184, 0.7);
+}
+
+/*Sleção de categorias*/
+.container-search select{
+  width: 90px;
+  height: 40px;
+  font-size: 1em;
+  text-align: center;
+  margin-top: 32px;
+  background: #dbacb8;
+  color: #3a2227;
+  font-weight: 700;
+  border: 1px solid #c993a2;
+  border-radius: 14px;
+}
+
+/*Filtrar roupas em doação*/
+.container-search{
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  align-items: end;
+  gap: 20px;
+  margin: 20px;
+}
+
+/*Cards*/
+.cards {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 16px auto 32px;
+  background-color: transparent;
+  max-width: 1000px;
+}
+
+.look-card {
+  position: relative;
+  width: 180px;
+  height: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #6E484A;
+  transition: transform .12s ease, box-shadow .12s ease;
+  cursor: pointer;
+}
+
+.look-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.look-card:focus {
+  outline: 3px solid #c98cb5;
+  outline-offset: 3px;
+}
+
+.look-card__media {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: rgba(0,0,0,0.06);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 16px 16px 0 0;
+}
+
+.look-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.look-card__label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #9A6E72;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/*Responsividade*/
+/*886px*/
+@media screen and (max-width: 886px){
+
+section button{
+  width: 120px;
+  height: 50px;
+  font-size: 1em;
+}
+
+}
+
+/*740px*/
+/*pesquisa e filtro*/
+@media screen and (max-width: 740px){
+.search-container i{
+  position: absolute;
+  right: 20px;
+  top:60%; /*Alinha o topo no meio*/
+  font-size: 20px; 
+}
+
+.search-container input{
+  width: 400px;
+}
+
+.container-search select{
+  width: 70px;
+  height: 40px;
+}
+
+.search-container i{
+  top:68%; /*Alinha o topo no meio*/
+}
+
+}
+
+/*556px*/
+/*pesquisa e filtro*/
+@media screen and (max-width: 556px){
+.search-container input{
+  width: 320px;
+}
+
+.container-search select{
+  width: 60px;
+
+}
+
+.search-container i{
+   right: 45px;
+}
+
+.search-container{
+  width: 350px;
+}
+
+.subtitulo{
+  font-size: 1.5rem;
+}
+
+}
+
+/*486px*/
+@media screen and (max-width: 486px){
+
+/*sidebar logo*/
+.logo {
+  height: 50px;
+  transform: translateY(-80%); /* centraliza verticalmente */
+}
+
+.container-search select{
+  display: none;
+}
+}
+
+/*380px*/
+@media screen and (max-width: 380px){
+  .conteudo{
+    width: 250px;
+    right: 30px;
+    position: relative;
+  }
+
+#openSideBar{
+  display: none;
+}
+
+.container-search select{
+  display: none;
+}
+
+.search-container i{
+   right: 30px;
+}
+
+.container-search{
+  position: relative;
+  right: 40px;
+  text-align: center;
+}
+}

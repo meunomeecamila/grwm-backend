@@ -1,0 +1,694 @@
+body {
+  background-color: #f7e9eb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 70px;
+  background-color: #f7e9eb; 
+  padding: 0 16px;
+}
+
+.container {
+  max-width: 1000px;              
+  margin: 40px 270px 40px 70px;      
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* Logo canto esquerdo */
+.logo {
+  height: 80px;
+  position: absolute;
+  left: 16px;  /* encosta no canto esquerdo */
+  top: 50%;
+  transform: translateY(-50%); /* centraliza verticalmente */
+  margin-top: 30px;
+  z-index: 1000;
+}
+
+/* Título centralizado */
+.titulo {
+  height: 125px;   /* ajuste conforme sua imagem */
+  margin-top: 40px;
+}
+
+
+/*Side bar*/
+/* Sidebar oculta */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px; /* começa fora da tela */
+  width: 250px;
+  height: 100%;
+  background-color: #e4cfd3; /* um tom mais escuro que o fundo */
+  box-shadow: -2px 0 6px rgba(0,0,0,0.15);
+  transition: right 0.3s ease;
+  padding: 20px;
+  z-index: 1000;
+}
+
+/* Quando ativa */
+.sidebar.active {
+  left: 0;
+}
+
+/* Links da sidebar */
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar__nav a {
+  text-decoration: none;
+  color: #5c3d3f;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/*Barra lateral sempre no perfil*/
+/* Barra fixa da esquerda */
+.profile-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;         /* largura da barra */
+  height: 100%;
+  background-color: #824031; /* marrom escuro */
+  color: #fff;          /* texto branco */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  z-index: 900; /* abaixo do header e da outra sidebar */
+}
+
+/* Foto do usuário */
+.user-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;   /* deixa redonda */
+  margin-bottom: 15px;
+  object-fit: cover;
+  border: 3px solid #fff;
+}
+
+/* Nome e email */
+.user-name {
+  font-size: 20px;
+  margin: 5px 0;
+  font-weight: 600;
+}
+
+.user-email {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+/* Menu */
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.profile-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.profile-menu a:hover {
+  background-color: #6a3025; /* marrom mais escuro ao passar o mouse */
+}
+
+/* grade dos cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 24px;
+  margin: 1px 0 32px;
+  /* não herdar fundo rosa nos filhos */
+  background-color: transparent;
+  margin-left: 30px;
+}
+
+/* card base */
+.look-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;             /* proporção parecida com a do mock */
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #6E484A;        /* marrom do card */
+  box-shadow: 0 0 0 0 rgba(0,0,0,0);
+  transition: transform .12s ease, box-shadow .12s ease;
+  cursor: pointer;
+}
+
+/* “imagem”/prévia (por enquanto um placeholder) */
+.look-card__media {
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.06);     /* leve textura */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* etiqueta inferior */
+.look-card__label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #9A6E72;       /* marrom mais claro da paleta */
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* hover e foco acessível */
+.look-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.look-card:focus {
+  outline: 3px solid #c98cb5;      /* contorno azul como no mock */
+  outline-offset: 3px;
+}
+
+/* evita que o seletor global pinte tudo de rosa dentro do card */
+.look-card, .look-card__media, .look-card__label {
+  background-clip: padding-box;
+}
+
+h4 {
+  margin-left: 30px;
+  size: 200px;
+  font-size: 20px;
+}
+
+
+
+/* Arrumar as imagens para mostrar o front*/
+.look-card__media {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.look-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* cobre todo o espaço do card */
+  border-radius: 16px 16px 0 0; /* arredonda só em cima */
+}
+
+
+#cardsblusa1detalhe {
+  width: 500px;
+  height: 70%;
+}
+
+
+/* Wrapper do detalhe (imagem + texto) */
+.detalhe-peça {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  margin: 10px 30px 32px; /* alinha com seus h4/cards existentes */
+}
+
+/* No detalhe, o bloco de cards vira apenas um holder do card */
+.detalhe-peça .cards {
+  display: block;        /* impede grid aqui */
+  margin: 0;             /* remove margem extra do grid global */
+  background: transparent;
+}
+
+/* Card da imagem: mantém sua estética, só limita largura */
+.detalhe-peça .look-card {
+  max-width: 520px;      /* respeita seu #cardsblusa1detalhe */
+  width: 100%;
+}
+
+/* Coluna de informações à direita */
+.info-detalhe {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.info-detalhe h4 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #5c3d3f;
+}
+
+.info-detalhe h3 {
+  font-size: 0.2rem;
+  font-weight: 600;
+  margin: 0;
+  color: #6E484A;
+}
+
+.info-detalhe .label {
+  font-weight: 600;
+  color: #824031;
+}
+
+.info-detalhe textarea {
+  width: 100%;
+  min-height: 140px;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border: 1px solid #e5d3d6;
+  border-radius: 10px;
+  background: #fff;
+  outline: none;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+
+.info-detalhe textarea:focus {
+  border-color: #c98cb5;
+  box-shadow: 0 0 0 3px rgba(201,140,181,0.15);
+}
+
+/* Títulos “Blusa”, etc., já existentes: só melhora leve */
+h4 {
+  margin-left: 30px;
+  font-size: 20px;       /* você já tinha */
+  font-weight: 700;
+  color: #5c3d3f;
+}
+
+/* ===========================
+   Detalhe da peça
+=========================== */
+#cardsblusa1detalhe {
+  width: 500px;
+  height: auto;
+ 
+}
+
+
+.detalhe-peça {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  margin: 10px 30px 32px;
+}
+
+.detalhe-peça .cards {
+  display: block;
+  margin: 0;
+  background: transparent;
+}
+
+.detalhe-peça .look-card {
+  max-width: 520px;
+  width: 100%;
+}
+
+/* ===========================
+   Página de Detalhes
+=========================== */
+
+.image-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.image-section img {
+  width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.details-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.details-section h1 {
+  margin-top: 0;
+  font-size: 28px;
+}
+
+.details-section p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.details-section span {
+  font-weight: bold;
+  color: #8b2f3a;
+}
+
+.info-box {
+  background-color: #f0e0e3;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.comentario-box {
+  background-color: #f0e0e3;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+
+.explorar-container {
+  margin-top: 0px;
+}
+
+/* ===========================
+   Botão de voltar
+=========================== */
+
+#back-btn {
+  display: inline-block;
+  text-decoration: none;
+  background: none;       /* sem fundo */
+  border: none;
+  cursor: pointer;
+  margin-left: 60px;
+}
+
+#back-btn i {
+  font-size: 24px;        /* tamanho da seta */
+  color: #82204f;         /* rosa escuro */
+  transition: color 0.2s;
+}
+
+#back-btn i:hover {
+  color: #a83366;         /* tom mais claro quando passar o mouse */
+}
+
+.action-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.action-buttons button {
+  border: none;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Botão editar */
+.btn-edit {
+  background-color: #f7d7e0;   /* rosa claro */
+  color: #82204f;             /* rosa escuro para contraste */
+}
+.btn-edit:hover {
+  background-color: #f3c2d0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Botão excluir */
+.btn-delete {
+  background-color: #f7d7e0;
+  color: #82204f;
+}
+.btn-delete:hover {
+  background-color: #f3c2d0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Formulário de cadastro de peças */
+/* ===========================
+   Formulário GRWM - versão maior
+=========================== */
+
+.doacao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+}
+
+.subtitulo {
+  margin-bottom: 32px;
+  text-align: center;
+  font-size: 1.8rem;     /* maior */
+  font-weight: 700;
+  color: #5c3d3f;
+}
+
+#form-doacao {
+  width: 100%;
+  max-width: 900px;              /* mais largo */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 28px;             /* mais espaço entre campos */
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
+#form-doacao p {
+  margin: 0 0 10px;
+  font-weight: 600;
+  font-size: 1.1rem;    /* maior título dos campos */
+  color: #5c3d3f;
+}
+
+/* Campos */
+#form-doacao input,
+#form-doacao select,
+#form-doacao textarea {
+  width: 100%;
+  height: 60px;                       /* altura maior */
+  font-size: 1rem;                    /* texto maior */
+  background: #f0e4e7;
+  border: 1px solid #e0c9d1;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: #5c3d3f;
+  outline: none;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+
+#form-doacao textarea {
+  min-height: 160px;                  /* textarea mais alto */
+  height: auto;
+  resize: vertical;
+}
+
+#form-doacao input::placeholder,
+#form-doacao textarea::placeholder {
+  color: #9f8088;
+  font-size: 0.95rem;
+}
+
+#form-doacao input:focus,
+#form-doacao select:focus,
+#form-doacao textarea:focus {
+  border-color: #dbacb8;
+  box-shadow: 0 0 0 3px rgba(219,172,184,.35);
+}
+
+/* Descrição ocupa linha toda */
+#form-descricao {
+  grid-column: 1 / -1;
+}
+
+/* Foto ocupa linha toda */
+.item:has(#form-foto) {
+  grid-column: 1 / -1;
+}
+
+#form-foto {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#form-foto label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 240px;
+  height: 60px;                       /* botão maior */
+  font-size: 1rem;
+  background: #dbacb8;
+  color: #3a2227;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0 20px;
+  border: 1px solid #c993a2;
+}
+
+#form-foto label i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+/* Botão enviar */
+.doacao > button {
+  margin-top: 32px;
+  width: 240px;
+  height: 60px;                       /* maior */
+  font-size: 1.1rem;                  /* texto maior */
+  background: #dbacb8;
+  color: #3a2227;
+  font-weight: 700;
+  border: 1px solid #c993a2;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: filter .2s ease, transform .1s ease;
+}
+
+.doacao > button:hover {
+  filter: brightness(.95);
+  transform: translateY(-2px);
+}
+
+.doacao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;   /* centraliza vertical também se quiser */
+}
+
+/* ===== Fix 1: isolar o grid do formulário do .container global ===== */
+#form-doacao.container{
+  margin: 0 auto !important;
+  max-width: 900px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 24px !important;                 /* respiro igual nos lados */
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important; /* evita overflow */
+  gap: 24px 28px !important;
+  align-items: start !important;
+  flex-wrap: initial !important;
+  flex-direction: initial !important;
+}
+
+/* ===== Fix 2: impedir que inputs “estourem” a coluna ===== */
+#form-doacao, 
+#form-doacao *{
+  box-sizing: border-box;
+}
+
+#form-doacao input,
+#form-doacao select,
+#form-doacao textarea{
+  width: 100%;
+  max-width: 100%;
+}
+
+/* linhas que devem ocupar 100% */
+#form-descricao{ grid-column: 1 / -1; }
+.item:has(#form-foto){ grid-column: 1 / -1; }
+
+/* ===== Fix 3: centralizar e reservar espaço para a sidebar fixa ===== */
+.doacao{
+  width: 100%;
+  display: flex;
+  justify-content: center;           /* centraliza o form no espaço restante */
+}
+
+@media (min-width: 1024px){
+  .doacao{ padding-right: 280px; }   /* 250px da sidebar + ~30px de folga */
+}
+
+/* (opcional) se não quiser a sidebar nesta tela, descomente: */
+/* .profile-sidebar{ display: none; } */
+
+/* (correção pequena na sidebar) */
+.sidebar{ transition: left 0.3s ease; }  /* você usava 'right' */
+
+/* Responsivo */
+@media (max-width: 768px) {
+  #form-doacao {
+    grid-template-columns: 1fr;
+  }
+}
+
+.doacao {
+  position: relative;       /* referência pro pseudo-elemento */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* fundo branco atrás de todo o conteúdo */
+.doacao::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);   /* centraliza */
+  width: 100%;
+  max-width: 1000px;             /* controla a largura do container */
+  height: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  z-index: 0;                    /* fica atrás */
+}
+
+/* garante que o conteúdo do formulário fique por cima */
+.doacao > * {
+  position: relative;
+  z-index: 1;
+}
+
+

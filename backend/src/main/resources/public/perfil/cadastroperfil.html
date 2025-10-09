@@ -1,0 +1,89 @@
+<!--Página de perfil do usuário-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de looks</title>
+    <link rel="stylesheet" href="perfil.css">
+    <!--Font awesome para ícones-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+
+<body>
+    <header class="topbar">
+        <!--Colocar a logo GRWM no canto esquerdo-->
+        <!--<img src="imgs/logoimggrwm.png" alt="Logo GRWM" class="logo" id="openSideBar">-->
+        <!--Colocar o título no centro-->
+        <img src="imgs/titulogrwm.png" alt="Título GRWM" class="titulo">
+    </header>
+
+    <!-- Botão de voltar -->
+    <a href="perfil.html" id="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+
+    <br><br><br>
+
+    <!--Cadastro-->
+    <section class="doacao">
+        <div class="conteudo">
+            <h3 class="subtitulo">Cadastre suas peças aqui!</h3>
+            <div class="formulario">
+                <!-- MANTEMOS OS MESMOS IDs E CLASSES -->
+                <form id="form-doacao" class="container" action="/peca" method="post">
+                    
+                    <!-- Nome -->
+                    <div id="form-nome" class="item">
+                        <p>Nome</p>
+                        <input type="text" name="nome" placeholder="Blusa branca básica" required>
+                    </div>
+
+                    <!-- Cor -->
+                    <div id="form-cor" class="item">
+                        <p>Cor</p>
+                        <input type="text" name="cor" placeholder="Rosa, azul, colorido...">
+                    </div>
+
+                    <!-- Ocasião -->
+                    <div id="form-ocasiao" class="item">
+                        <p>Ocasião de uso</p>
+                        <input type="text" name="ocasiao" placeholder="Festa, reunião">
+                    </div>
+
+                    <!-- Descrição -->
+                    <div id="form-descricao" class="item">
+                        <p>Breve descrição</p>
+                        <textarea name="descricao" placeholder="Exemplo: Blusa branca, tamanho M"></textarea>
+                    </div>
+
+                    <!-- Categoria -->
+                    <div id="form-categoria" class="item">
+                        <p>Categoria</p>
+                        <select name="categoria">
+                            <option value="blusas-e-camisetas">Blusas e Camisetas</option>
+                            <option value="vestidos">Vestidos</option>
+                            <option value="calcas">Calças</option>
+                            <option value="saias">Saias</option>
+                            <option value="shorts">Shorts</option>
+                            <option value="camisas">Camisas</option>
+                            <option value="moletom">Moletom</option>
+                            <option value="casacos-e-jaquetas">Casacos e Jaquetas</option>
+                            <option value="acessorios">Acessórios</option>
+                            <option value="calcados">Calçados</option>
+                        </select>
+                    </div>
+
+                    <!-- Botão dentro do form -->
+                    <button type="submit">Enviar</button>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="perfil.js"></script>
+</body>
+
+</html>

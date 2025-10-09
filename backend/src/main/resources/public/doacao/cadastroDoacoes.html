@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="doacao.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Cadastro de Doações</title>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <!--Colocar a logo GRWM no canto esquerdo-->
+        <img src="imgs/logoimggrwm.png" alt="Logo GRWM" class="logo" id="openSideBar">
+        <!--Colocar o titulo no centro-->
+        <a href="../inicio/inicio.html"><img src="imgs/titulogrwm.png" alt="Título GRWM" class="titulo"></a>
+    </header>
+
+    <!--Side bar que ficará escondida-->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar__nav">
+            <!--colocar aqui as paginas-->
+            <a href="../inicio/inicio.html">Início</a>
+            <a href="../perfil/perfil.html">Perfil</a>
+            <a href="doacao.html">Doações</a>
+        </nav>
+    </aside>
+
+
+    <!--Conteúdo principal-->
+    <main>
+        <br>
+        <br>
+        <br>
+
+        <!--Cadastro-->
+        <section class="doacao">
+            <div class="conteudo">
+                <h3 class="subtitulo">Alguma peça parada no armário? Doe aqui!</h3>
+                <div class="formulario">
+                   <form id="form-doacao" class="container" action="/doacao" method="post">
+                        <!--Nome-->
+                        <div id="form-nome" class="item">
+                            <p>Nome</p>
+                            <input type="text" name="nome" placeholder="Exemplo: Blusa branca básica">
+                        </div>
+                        <!--Seleção de tamanho-->
+                        <div id="form-tamanho" class="item">
+                            <p>Tamanho</p>
+                            <select name="tamanho" id="tamanhos">
+                                <option value="pp"> PP </option>
+                                <option value="p"> P</option>
+                                <option value="m"> M</option>
+                                <option value="g"> G </option>
+                                <option value="gg"> GG </option>
+                                <option value="xgg"> XGG </option>
+                            </select>
+                        </div>
+
+                        <!--Descrição-->
+                        <div id="form-descricao" class="item">
+                            <p>Breve descrição</p>
+                            <textarea name="descricao" placeholder="Exemplo: Blusa branca, tamanho M"></textarea>
+                        </div>
+
+                        <!--Seleção Categoria-->
+                        <div id="form-categoria" class="item">
+                            <p>Categoria</p>
+                            <select name="categoria">
+                                <option value="blusas-e-camisetas">Blusas e Camisetas</option>
+                                <option value="vestidos">Vestidos</option>
+                                <option value="calcas">Calças</option>
+                                <option value="saias">Saias</option>
+                                <option value="shorts">Shorts</option>
+                                <option value="camisas">Camisas</option>
+                                <option value="moletom">Moletom</option>
+                                <option value="casacos-e-jaquetas">Casacos e Jaquetas</option>
+                                <option value="acessorios">Acessórios</option>
+                                <option value="calcados">Calçados</option>
+                            </select>
+                        </div>
+
+                        <!--Foto-->
+                        <!--<div class="item">
+                            <p>Foto</p>
+                            <div id="form-foto">
+                                <input type="file" name="imagem" id="file-upload" accept="image/*">
+                                <label for="file-upload" class="img-uploud"><i class="bi bi-camera"></i>Escolher
+                                    Foto</label>
+                            </div>
+                        </div>-->
+						<!-- Botão de envio dentro do form -->
+						    <div class="item">
+						        <button type="submit">Enviar</button>
+						    </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="doacao.js"></script>
+</body>
+
+</html>
