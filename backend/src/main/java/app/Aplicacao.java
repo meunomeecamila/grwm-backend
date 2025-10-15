@@ -77,6 +77,26 @@ public class Aplicacao {
                 return "Erro ao cadastrar usuário.";
             }
         });
+        
+        // ===================== GET USUÁRIO PARA PERFIL =====================
+        
+        get("/usuario/:id", (req, res) -> {
+            // Pega o ID da URL e converte para inteiro
+            int id = Integer.parseInt(req.params(":id"));
+            
+            Usuario usuario = usuarioService.getById(id);
+            
+            res.type("application/json");
+            
+            if (usuario != null) {
+                res.status(200); 
+                // Retorna um JSON com dados 
+                return "{\"id\": " + usuario.getId() + ", \"username\": \"" + usuario.getUsername() + "\"}";
+            } else {
+                res.status(404); // Not Found
+                return "{\"message\":\"Usuário não encontrado.\"}";
+            }
+        });
 
 
     }
