@@ -48,25 +48,27 @@ public class UsuarioDAO {
     
     //Busca usuario a partir do id para a pagina de perfil
     public Usuario getById(int id) {
+        String sql = "SELECT * FROM Usuario WHERE id = ?";
         Usuario usuario = null;
-        String sql = "SELECT id, username FROM Usuario WHERE id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
-            
-            try (java.sql.ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    usuario = new Usuario();
-                    usuario.setId(rs.getInt("id"));
-                    usuario.setUsername(rs.getString("username"));
-                }
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                usuario = new Usuario();
+                usuario.setId(rs.getInt("id"));
+                usuario.setUsername(rs.getString("username"));
+                usuario.setSenha(rs.getString("senha"));
             }
+
         } catch (Exception e) {
-            System.out.println("❌ Erro ao buscar usuário por ID:");
             e.printStackTrace();
         }
+
         return usuario;
     }
+
 }

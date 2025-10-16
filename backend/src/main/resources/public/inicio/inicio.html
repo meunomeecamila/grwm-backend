@@ -1,0 +1,163 @@
+<!--Página de perfil do usuário-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Início</title>
+  <link rel="stylesheet" href="inicio.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+</head>
+
+<body>
+
+  <header class="topbar">
+    <!--Colocar a logo GRWM no canto esquerdo-->
+    <img src="imgs/logoimggrwm.png" alt="Logo GRWM" class="logo" id="openSideBar">
+    <!--Colocar o titulo no centro-->
+    <img src="imgs/titulogrwm.png" alt="Título GRWM" class="titulo">
+  </header>
+
+  <main>
+    <section class="top-section">
+
+      <!-- Barra de busca -->
+      <div class="search-container">
+        <input type="text" id="search" class="form-control" placeholder="Buscar looks...">
+        <button id="search-btn">
+          <i class="bi bi-search-heart"></i>
+        </button>
+      </div>
+
+    </section>
+
+    <section class="cards">
+
+      <!-- Cards de looks -->
+      <!--Colocar de forma ficticia-->
+      <!--Será adicionado depois com JSON e backend-->
+      <!--Cards dos looks-->
+
+      <div class="explorar-container">
+        <h2>Explorar</h2>
+        <br>
+
+        <div class="cards" id="cards-explorar">
+
+          <a href="detalhesinicio.html" class="look-card" id="blusa1" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/blusa01.jpg" alt="Blusa 1">
+            </div>
+            <div class="look-card__label">Blusa Decotada</div>
+          </a>
+
+          <div class="look-card" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/oculos01.jpg" alt="Óculos 1">
+            </div>
+            <div class="look-card__label">Óculos de sol</div>
+          </div>
+
+          <div class="look-card" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/vestido01.jpg" alt="Vestido 1">
+            </div>
+            <div class="look-card__label">Vestido Longo</div>
+          </div>
+
+          <div class="look-card" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/saia01.jpg" alt="Saia 1">
+            </div>
+            <div class="look-card__label">Mini saia</div>
+          </div>
+
+          <div class="look-card" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/sapato01.jpg" alt="Tenis 1">
+            </div>
+            <div class="look-card__label">Tênis</div>
+          </div>
+
+          <div class="look-card" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/bolsa01.jpg" alt="Bolsa 1">
+            </div>
+            <div class="look-card__label">Bolsa</div>
+          </div>
+
+          <div class="look-card" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/blusa02.jpg" alt="Blusa 1">
+            </div>
+            <div class="look-card__label">Blusa Regata</div>
+          </div>
+
+          <div class="look-card" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/calca01.jpg" alt="Calça 1">
+            </div>
+            <div class="look-card__label">Calça Jeans</div>
+          </div>
+
+          <div class="look-card" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/joia01.jpg" alt="Bracelete 1">
+            </div>
+            <div class="look-card__label">Bracelete</div>
+          </div>
+
+          <div class="look-card" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/saia02.jpg" alt="Saia 2">
+            </div>
+            <div class="look-card__label">Mini saia</div>
+          </div>
+
+          <div class="look-card" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/blusa03.jpg" alt="Blusa 3">
+            </div>
+            <div class="look-card__label">Blusa Ombro a Ombro</div>
+          </div>
+
+          <div class="look-card" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/joia02.jpg" alt="Colar 1">
+            </div>
+            <div class="look-card__label">Colar</div>
+          </div>
+
+          <div class="look-card" tabindex="0">
+            <div class="look-card__media">
+              <img src="imgs/sapato02.jpg" alt="Sandalha 1">
+            </div>
+            <div class="look-card__label">Sandalha</div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </section>
+  </main>
+
+
+  <!--Side bar que ficará escondida-->
+  <aside class="sidebar" id="sidebar">
+    <nav class="sidebar__nav">
+      <!--colocar aqui as paginas-->
+      <a href="../perfil/perfil.html">Perfil</a>
+      <a href="../doacao/doacao.html">Doações</a>
+      <a href="../doacao/cadastroDoacoes.html">Doar</a>
+    </nav>
+  </aside>
+
+
+  <script src="inicio.js"></script>
+</body>
+
+</html>

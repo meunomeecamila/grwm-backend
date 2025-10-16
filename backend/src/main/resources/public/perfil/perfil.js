@@ -3,39 +3,22 @@
 // ===================================================================
 
 // Executa o código quando a página HTML terminar de carregar
-window.onload = function() {
-    // Pega os parâmetros da URL
-    const params = new URLSearchParams(window.location.search);
-    const userId = params.get('id'); 
+// src/main/resources/public/perfil/perfil.js
 
-    //Onde irá substituir
-    const nomeUsuarioEl = document.querySelector('.user-name'); 
-
-    // Se não houver um ID na URL
-    if (!userId) {
-        nomeUsuarioEl.textContent = 'Erro: Usuário não especificado.';
-        return;
+// Exemplo: usuário com id=1
+// (depois podemos deixar dinâmico com session ou localStorage)
+fetch("/usuario/1")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Usuário não encontrado");
     }
-
-    // Chama a API do backend para buscar os dados do usuário
-    fetch(`/usuario/${userId}`)
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => { throw new Error(err.message) });
-            }
-            // Se a resposta for OK converte para JSON
-            return response.json();
-        })
-        .then(data => {
-            //Atualiza username
-            nomeUsuarioEl.textContent = data.username;
-        })
-        .catch(error => {
-            console.error('Erro ao buscar dados do perfil:', error);
-			alert('Usuário não encontrado!');
-			window.location.href = '/login/index.html';
-        });
-};
+    return response.json();
+  })
+  .then(usuario => {
+    document.querySelector(".user-name").textContent = usuario.username;
+    document.querySelector(".user-email").textContent = usuario.username + "@email.com"; // fictício
+  })
+  .catch(error => console.error(error));
 
 
 // ===================================================================

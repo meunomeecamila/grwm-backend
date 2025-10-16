@@ -70,7 +70,7 @@ public class Aplicacao {
 
             if (ok) {
                 // Se deu certo → redireciona para a tela de login
-                res.redirect("/login.html");
+                res.redirect("/login/login.html");
                 return null; // encerra a execução da rota
             } else {
                 res.status(500);
@@ -95,6 +95,24 @@ public class Aplicacao {
             } else {
                 res.status(404); // Not Found
                 return "{\"message\":\"Usuário não encontrado.\"}";
+            }
+        });
+        
+        // === ROTA DE LOGIN ===
+        post("/login", (req, res) -> {
+            String username = req.queryParams("username");
+            String senha = req.queryParams("senha");
+
+            boolean autenticado = usuarioService.autenticar(username, senha);
+
+            if (autenticado) {
+                // ✅ Login bem-sucedido → redireciona para o início
+                res.redirect("/inicio/inicio.html");
+                return null;
+            } else {
+                // ❌ Login falhou → volta para login
+                res.redirect("/login/login.html");
+                return null;
             }
         });
 
