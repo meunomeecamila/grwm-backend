@@ -1,7 +1,6 @@
 package app;
 
 import static spark.Spark.*;
-
 import model.Doacao;
 import model.Peca;
 import model.Usuario;
@@ -9,16 +8,16 @@ import service.DoacaoService;
 import service.PecaService;
 import service.UsuarioService;
 
-
 public class Aplicacao {
     public static void main(String[] args) {
-        // Porta padrão e local dos arquivos estáticos (HTML, CSS, JS)
         port(8081);
         staticFileLocation("/public");
 
-        // ===================== ROTA DE DOAÇÃO =====================
         DoacaoService doacaoService = new DoacaoService();
+        PecaService pecaService = new PecaService();
+        UsuarioService usuarioService = new UsuarioService();
 
+        // ===================== ROTA DE DOAÇÃO =====================
         post("/doacao", (req, res) -> {
             String nome = req.queryParams("nome");
             String descricao = req.queryParams("descricao");
@@ -29,16 +28,19 @@ public class Aplicacao {
             boolean ok = doacaoService.cadastrar(d);
 
             res.type("application/json");
-            res.status(ok ? 200 : 500);
 
-            return ok
-                ? "{\"message\":\"Doação cadastrada com sucesso!\"}"
-                : "{\"message\":\"Erro ao cadastrar doação.\"}";
+            if (ok) {
+                // Redireciona para a página de sucesso
+                res.redirect("/doacao/sucesso.html");
+                return null; // precisa retornar null após o redirect
+            } else {
+                // Retorna mensagem de erro sem sair da página
+                res.status(400);
+                return "<script>alert('Erro ao cadastrar peça.'); history.back();</script>";
+            }
         });
 
-        // ===================== ROTA DE PEÇA (PERFIL) =====================
-        PecaService pecaService = new PecaService();
-
+        // ===================== ROTA DE PEÇA =====================
         post("/peca", (req, res) -> {
             String nome = req.queryParams("nome");
             String cor = req.queryParams("cor");
@@ -49,18 +51,20 @@ public class Aplicacao {
             Peca p = new Peca(nome, cor, ocasiao, descricao, categoria);
             boolean ok = pecaService.cadastrar(p);
 
-            res.type("application/json");
-            res.status(ok ? 200 : 500);
-
-            return ok
-                ? "{\"message\":\"Peça cadastrada com sucesso!\"}"
-                : "{\"message\":\"Erro ao cadastrar peça.\"}";
+            if (ok) {
+                // Se cadastrou com sucesso → redireciona para sucesso.html
+                res.redirect("/doacao/sucesso.html");
+                return null; // Spark exige um retorno nulo após redirect
+            } else {
+                // Se deu erro → mostra alerta e permanece na página
+                res.status(400);
+                res.type("text/html");
+                return "<script>alert('Erro ao cadastrar peça.'); history.back();</script>";
+            }
         });
-        
-     // ===================== ROTA DE USUÁRIO (LOGIN) =====================
-        
-        UsuarioService usuarioService = new UsuarioService();
 
+
+        // ===================== ROTA DE USUÁRIO =====================
         post("/usuario", (req, res) -> {
             String username = req.queryParams("username");
             String senha = req.queryParams("senha");
@@ -69,53 +73,47 @@ public class Aplicacao {
             boolean ok = usuarioService.cadastrar(u);
 
             if (ok) {
-                // Se deu certo → redireciona para a tela de login
                 res.redirect("/login/login.html");
-                return null; // encerra a execução da rota
+                return null;
             } else {
                 res.status(500);
                 return "Erro ao cadastrar usuário.";
             }
         });
-        
-        // ===================== GET USUÁRIO PARA PERFIL =====================
-        
-        get("/usuario/:id", (req, res) -> {
-            // Pega o ID da URL e converte para inteiro
-            int id = Integer.parseInt(req.params(":id"));
-            
-            Usuario usuario = usuarioService.getById(id);
-            
-            res.type("application/json");
-            
-            if (usuario != null) {
-                res.status(200); 
-                // Retorna um JSON com dados 
-                return "{\"id\": " + usuario.getId() + ", \"username\": \"" + usuario.getUsername() + "\"}";
-            } else {
-                res.status(404); // Not Found
-                return "{\"message\":\"Usuário não encontrado.\"}";
-            }
-        });
-        
-        // === ROTA DE LOGIN ===
+
+        // ===================== ROTA DE LOGIN (funcionava antes) =====================
         post("/login", (req, res) -> {
             String username = req.queryParams("username");
             String senha = req.queryParams("senha");
 
-            boolean autenticado = usuarioService.autenticar(username, senha);
+            Usuario usuario = usuarioService.getByUsernameAndSenha(username, senha);
 
-            if (autenticado) {
-                // ✅ Login bem-sucedido → redireciona para o início
-                res.redirect("/inicio/inicio.html");
-                return null;
+            res.type("application/json");
+
+            if (usuario != null) {
+                res.status(200);
+                return "{\"id\": " + usuario.getId() + ", \"username\": \"" + usuario.getUsername() + "\"}";
             } else {
-                // ❌ Login falhou → volta para login
-                res.redirect("/login/login.html");
-                return null;
+                res.status(401);
+                return "{\"message\": \"Usuário ou senha incorretos.\"}";
             }
         });
 
+        // ===================== ROTA DE PERFIL =====================
+        get("/usuario/:id", (req, res) -> {
+            int id = Integer.parseInt(req.params(":id"));
+            Usuario usuario = usuarioService.getById(id);
 
+            res.type("application/json");
+
+            if (usuario != null) {
+                res.status(200);
+                return "{\"id\": " + usuario.getId() +
+                       ", \"username\": \"" + usuario.getUsername() + "\"}";
+            } else {
+                res.status(404);
+                return "{\"message\":\"Usuário não encontrado.\"}";
+            }
+        });
     }
 }

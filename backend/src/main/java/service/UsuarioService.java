@@ -13,11 +13,12 @@ public class UsuarioService {
     public boolean autenticar(String username, String senha) {
         return dao.autenticar(username, senha);
     }
-    
-    
+
     public Usuario getById(int id) {
         return dao.getById(id);
     }
-
+    
+    public Usuario getByUsernameAndSenha(String username, String senha) {
+        return dao.getByUsernameAndSenha(username, senha);
+    }
 }
-

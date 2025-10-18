@@ -70,5 +70,31 @@ public class UsuarioDAO {
 
         return usuario;
     }
+    
+ // Busca usuário pelo username e senha (para o login)
+    public Usuario getByUsernameAndSenha(String username, String senha) {
+        String sql = "SELECT * FROM Usuario WHERE username = ? AND senha = ?";
+        Usuario usuario = null;
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, username);
+            ps.setString(2, senha);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                usuario = new Usuario();
+                usuario.setId(rs.getInt("id"));
+                usuario.setUsername(rs.getString("username"));
+                usuario.setSenha(rs.getString("senha"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return usuario;
+    }
 
 }

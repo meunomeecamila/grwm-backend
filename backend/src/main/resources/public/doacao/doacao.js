@@ -23,3 +23,23 @@ logoBtn.addEventListener('click', () => {
     logoBtn.style.left = PADDING_LEFT + 'px';
   }
 });
+
+document.getElementById("formDoacao").addEventListener("submit", async (e) => {
+    e.preventDefault(); // impede recarregamento automático
+    const formData = new FormData(e.target);
+
+    const response = await fetch("/doacao", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        // redireciona se deu certo
+        window.location.href = "sucesso.html";
+    } else {
+        // exibe alerta e continua na página
+        alert(data.message);
+    }
+});
