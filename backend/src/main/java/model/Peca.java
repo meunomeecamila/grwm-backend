@@ -7,15 +7,17 @@ public class Peca {
     private String ocasiao;
     private String descricao;
     private String categoria;
+    private byte[] foto; // adicionando a foto como byte array
 
     public Peca() {}
 
-    public Peca(String nome, String cor, String ocasiao, String descricao, String categoria) {
+    public Peca(String nome, String cor, String ocasiao, String descricao, String categoria, byte[] foto) {
         this.nome = nome;
         this.cor = cor;
         this.ocasiao = ocasiao;
         this.descricao = descricao;
         this.categoria = categoria;
+        this.foto = foto;
     }
 
     public int getId() { return id; }
@@ -35,5 +37,7 @@ public class Peca {
 
     public String getCategoria() { return categoria; }
     public void setCategoria(String categoria) { this.categoria = categoria; }
-}
 
+    public byte[] getFoto() { return foto; }
+    public void setFoto(byte[] foto) { this.foto = foto; }
+}

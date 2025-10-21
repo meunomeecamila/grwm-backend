@@ -9,4 +9,8 @@ public class PecaService {
     public boolean cadastrar(Peca p) {
         return dao.inserir(p);
     }
+    
+    public Peca getById(int id) {
+        return dao.getById(id);
+    }
 }

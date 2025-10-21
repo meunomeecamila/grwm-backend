@@ -8,6 +8,11 @@ import service.DoacaoService;
 import service.PecaService;
 import service.UsuarioService;
 
+//para importar imagem
+import javax.servlet.MultipartConfigElement;
+import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
+
 public class Aplicacao {
     public static void main(String[] args) {
         port(8081);
@@ -42,13 +47,44 @@ public class Aplicacao {
 
         // ===================== ROTA DE PEÇA =====================
         post("/peca", (req, res) -> {
+        	
+        	//avisa ao spark que recebera arquivos e define um lugar temporario para ficar até ser processado
+        	req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
+        	
             String nome = req.queryParams("nome");
             String cor = req.queryParams("cor");
             String ocasiao = req.queryParams("ocasiao");
             String descricao = req.queryParams("descricao");
             String categoria = req.queryParams("categoria");
+            
+            //TRATANDO DA IMAGEM EM BINARIO
+            //array para guardar o codigo de uploud da foto
+            byte[] foto = null;
+            
+            //encontra o formulario da imagem, no formulario, e faz o processamento
+            try(InputStream is = req.raw().getPart("imagem").getInputStream()){
+            	
+            	ByteArrayOutputStream buffer = new ByteArrayOutputStream(); //cria campo vazio de memoria
+            	
+            	int nRead;
+            	byte[] data = new byte[1024];
+            	
+            	//le a imagem em binario, e passa para o campo
+            	while((nRead = is.read(data, 0, data.length)) != -1) {
+            		buffer.write(data, 0, nRead);
+            	}
+            	
+            	foto = buffer.toByteArray(); //converte as informacoes em um array de bytes
+            	
+            } catch (Exception e) { //erro para processar imagem
+            	e.printStackTrace();
+                res.status(400);
+                return "<script>alert('Erro ao processar a imagem :('); history.back();</script>";
+            }
+            
+            //FIM DO TRATAMENTO DA IMAGEM
 
-            Peca p = new Peca(nome, cor, ocasiao, descricao, categoria);
+            Peca p = new Peca(nome, cor, ocasiao, descricao, categoria, foto);
             boolean ok = pecaService.cadastrar(p);
 
             if (ok) {
