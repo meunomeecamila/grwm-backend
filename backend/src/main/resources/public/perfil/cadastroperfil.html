@@ -32,7 +32,7 @@
             <h3 class="subtitulo">Cadastre suas peças aqui!</h3>
             <div class="formulario">
                 <!-- MANTEMOS OS MESMOS IDs E CLASSES -->
-                <form id="form-doacao" class="container" action="/peca" method="post">
+                <form id="form-doacao" class="container" action="/peca" method="post" enctype="multipart/form-data">
                     
                     <!-- Nome -->
                     <div id="form-nome" class="item">
@@ -74,6 +74,16 @@
                             <option value="calcados">Calçados</option>
                         </select>
                     </div>
+					
+					<!--Foto-->
+					<div class="item">
+					    <p>Foto</p>
+					    <div id="form-foto">
+					       <input type="file" name="imagem" id="file-upload" accept="image/*">
+					       <label for="file-upload" class="img-uploud"><i class="bi bi-camera"></i>Escolher
+					        Foto</label>
+					    </div>
+					</div>
 
                     <!-- Botão dentro do form -->
                     <button type="submit">Enviar</button>

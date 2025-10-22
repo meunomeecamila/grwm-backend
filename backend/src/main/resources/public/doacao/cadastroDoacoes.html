@@ -40,7 +40,7 @@
             <div class="conteudo">
                 <h3 class="subtitulo">Alguma peça parada no armário? Doe aqui!</h3>
                 <div class="formulario">
-                   <form id="form-doacao" class="container" action="/doacao" method="post">
+                   <form id="form-doacao" class="container" action="/doacao" method="post" enctype="multipart/form-data">
                         <!--Nome-->
                         <div id="form-nome" class="item">
                             <p>Nome</p>
@@ -82,15 +82,15 @@
                             </select>
                         </div>
 
-                        <!--Foto-->
-                        <div class="item">
-                            <p>Foto</p>
-                            <div id="form-foto">
-                                <input type="file" name="imagem" id="file-upload" accept="image/*">
-                                <label for="file-upload" class="img-uploud"><i class="bi bi-camera"></i>Escolher
-                                    Foto</label>
-                            </div>
-                        </div>
+						<!--Foto-->
+						<div class="item">
+						    <p>Foto</p>
+						    <div id="form-foto">
+						       <input type="file" name="imagem" id="file-upload" accept="image/*">
+						       <label for="file-upload" class="img-uploud"><i class="bi bi-camera"></i>Escolher
+						        Foto</label>
+						    </div>
+						</div>
 						<!-- Botão de envio dentro do form -->
 						    <div class="item">
 						        <button type="submit">Enviar</button>

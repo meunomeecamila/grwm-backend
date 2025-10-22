@@ -22,14 +22,45 @@ public class Aplicacao {
         PecaService pecaService = new PecaService();
         UsuarioService usuarioService = new UsuarioService();
 
-        // ===================== ROTA DE DOAÇÃO =====================
+     // ===================== ROTA DE DOAÇÃO =====================
         post("/doacao", (req, res) -> {
+        	
+        	//avisa ao spark que recebera arquivos e define um lugar temporario para ficar até ser processado
+        	req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
+        	
             String nome = req.queryParams("nome");
             String descricao = req.queryParams("descricao");
             String tamanho = req.queryParams("tamanho");
             String categoria = req.queryParams("categoria");
 
-            Doacao d = new Doacao(nome, descricao, tamanho, categoria);
+            //TRATANDO DA IMAGEM EM BINARIO
+            //array para guardar o codigo de uploud da foto
+            byte[] foto = null;
+            
+            //encontra o formulario da imagem, no formulario, e faz o processamento
+            try(InputStream is = req.raw().getPart("imagem").getInputStream()){
+            	
+            	ByteArrayOutputStream buffer = new ByteArrayOutputStream(); //cria campo vazio de memoria
+            	
+            	int nRead;
+            	byte[] data = new byte[1024];
+            	
+            	//le a imagem em binario, e passa para o campo
+            	while((nRead = is.read(data, 0, data.length)) != -1) {
+            		buffer.write(data, 0, nRead);
+            	}
+            	
+            	foto = buffer.toByteArray(); //converte as informacoes em um array de bytes
+            	
+            } catch (Exception e) { //erro para processar imagem
+            	e.printStackTrace();
+                res.status(400);
+                return "<script>alert('Erro ao processar a imagem :('); history.back();</script>";
+            }
+            
+            //FIM DO TRATAMENTO DA IMAGEM
+
+            Doacao d = new Doacao(nome, descricao, tamanho, categoria, foto);
             boolean ok = doacaoService.cadastrar(d);
 
             res.type("application/json");
@@ -44,7 +75,6 @@ public class Aplicacao {
                 return "<script>alert('Erro ao cadastrar peça.'); history.back();</script>";
             }
         });
-
         // ===================== ROTA DE PEÇA =====================
         post("/peca", (req, res) -> {
         	

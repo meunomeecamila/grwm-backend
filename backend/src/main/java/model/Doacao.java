@@ -6,14 +6,16 @@ public class Doacao {
     private String descricao;
     private String tamanho;
     private String categoria;
+    private byte[] foto; // adicionando a foto como byte array
 
     public Doacao() {}
 
-    public Doacao(String nome, String descricao, String tamanho, String categoria) {
+    public Doacao(String nome, String descricao, String tamanho, String categoria, byte[] foto) {
         this.nome = nome;
         this.descricao = descricao;
         this.tamanho = tamanho;
         this.categoria = categoria;
+        this.foto = foto;
     }
 
     public int getId() { return id; }
@@ -30,4 +32,7 @@ public class Doacao {
 
     public String getCategoria() { return categoria; }
     public void setCategoria(String categoria) { this.categoria = categoria; }
+
+    public byte[] getFoto() { return foto; }
+    public void setFoto(byte[] foto) { this.foto = foto; }
 }
