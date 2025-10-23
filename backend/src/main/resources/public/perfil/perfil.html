@@ -1,176 +1,64 @@
-<!--Página de perfil do usuário-->
+<!-- Página de perfil do usuário -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil do usuário</title>
-    <link rel="stylesheet" href="perfil.css">
-    <!--Font awesome para icones-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil do usuário</title>
+  <link rel="stylesheet" href="perfil.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
 
 <body>
 
-    <header class="topbar">
-        <!--Colocar a logo GRWM no canto esquerdo-->
-        <img src="imgs/logoimggrwm.png" alt="Logo GRWM" class="logo" id="openSideBar">
-        <!--Colocar o titulo no centro-->
-        <img src="imgs/titulogrwm.png" alt="Título GRWM" class="titulo">
-    </header>
+  <!-- ========== TOPO ========== -->
+  <header class="topbar">
+    <img src="imgs/logoimggrwm.png" alt="Logo GRWM" class="logo" id="openSideBar">
+    <img src="imgs/titulogrwm.png" alt="Título GRWM" class="titulo">
+  </header>
 
-    <!--Side bar que ficará escondida-->
-    <aside class="sidebar" id="sidebar">
-        <nav class="sidebar__nav">
-            <!--colocar aqui as paginas-->
-            <a href="../doacao/doacao.html">Doações</a>
-            <a href="../doacao/cadastroDoacoes.html">Doar</a>
-            <a href="../inicio/inicio.html">Início</a>
-        </nav>
-    </aside>
+  <!-- ========== SIDEBAR OCULTA ========== -->
+  <aside class="sidebar" id="sidebar">
+    <nav class="sidebar__nav">
+      <a href="../doacao/doacao.html">Doações</a>
+      <a href="../doacao/cadastroDoacoes.html">Doar</a>
+      <a href="../inicio/inicio.html">Início</a>
+    </nav>
+  </aside>
 
-    <!-- Barra lateral fixa com informações do usuário -->
-    <aside class="profile-sidebar">
-        <div class="user-info">
-            <!--Adicionar foto do usuário depois-->
-            <!--<img src="imgs/foto-usuario.png" alt="Foto do usuário" class="user-photo">-->
-            <!--<i class="fa-solid fa-user user-icon"></i>-->
-            <br>
-            <br>
-            <br>
-            <h2 class="user-name"></h2>
-            <!--<p class="user-email"></p>-->
-        </div>
+  <!-- ========== SIDEBAR PERFIL FIXA ========== -->
+  <aside class="profile-sidebar">
+    <div class="user-info">
+      <br><br><br>
+      <h2 class="user-name"></h2>
+    </div>
 
-        <nav class="profile-menu">
-            <br>
-            <a href="#">Informações</a>
-            <a href="#">Meus looks</a>
-            <a href="cadastroperfil.html">Cadastre novos looks</a>
-        </nav>
-    </aside>
+    <nav class="profile-menu">
+      <br>
+      <a href="#">Informações</a>
+      <a href="#">Meus looks</a>
+      <a href="cadastroperfil.html">Cadastre novos looks</a>
+    </nav>
+  </aside>
 
-    <!--Colocar de forma ficticia-->
-    <!--Será adicionado depois com JSON e backend-->
-    <!--Cards dos looks-->
-    <br>
-    <br>
-    <br>
-    <h4>Blusas</h4>
-    <div class="cards" id="cards-blusas">
-        <div class="look-card" id="blusa1" tabindex="0">
+  <!-- ========== CONTEÚDO PRINCIPAL ========== -->
+  <main class="conteudo" id="conteudo-looks">
+    <!-- As categorias e os cards serão inseridos aqui dinamicamente via perfil.js -->
+    <!-- Estrutura que o JS vai criar:
+        <h4>Blusas</h4>
+        <div class="cards" id="cards-blusas">
+          <div class="look-card">
             <div class="look-card__media">
-                <img src="imgs/blusa1.jpeg" alt="Blusa 1">
+              <img src="data:image/jpeg;base64,..." alt="Blusa 1">
             </div>
             <div class="look-card__label">Blusa 1</div>
+          </div>
         </div>
+    -->
+  </main>
 
-
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/blusa2.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Blusa 2</div>
-        </div>
-
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/blusa3.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Blusa 3</div>
-        </div>
-
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/blusa4.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Blusa 4</div>
-        </div>
-
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/blusa5.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Blusa 5</div>
-        </div>
-     </div>
-
-    <h4>Acessórios</h4>
-    <div class="cards" id="cards-acessorios">
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/acc1.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Óculos 1</div>
-        </div>
-
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/acc2.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Chapéu 1</div>
-        </div>
-
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/acc4.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Colar 1</div>
-        </div>
-
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/acc3.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Bolsa 1</div>
-        </div>
-
-    </div>
-
-    <h4>Vestidos</h4>
-    <div class="cards" id="cards-acessorios">
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/vestido1.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Vestido 1</div>
-        </div>
-
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/vestido2.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Vestido 2</div>
-        </div>
-
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/vestido3.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Vestido 3</div>
-        </div>
-
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/vestido4.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Vestido 4</div>
-        </div>
-
-        <div class="look-card" tabindex="0">
-            <div class="look-card__media">
-                <img src="imgs/vestido5.jpeg" alt="Blusa 1">
-            </div>
-            <div class="look-card__label">Vestido 5</div>
-        </div>
-    </div>
-
-
-
-
-    <script src="perfil.js"></script>
+  <script src="perfil.js"></script>
 </body>
 
 </html>

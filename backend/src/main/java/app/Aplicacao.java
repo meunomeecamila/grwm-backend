@@ -1,6 +1,16 @@
 package app;
 
 import static spark.Spark.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.util.Base64;
+import java.util.List;
+
+import javax.servlet.MultipartConfigElement;
+
+import com.google.gson.Gson;
+
 import model.Doacao;
 import model.Peca;
 import model.Usuario;
@@ -8,127 +18,98 @@ import service.DoacaoService;
 import service.PecaService;
 import service.UsuarioService;
 
-//para importar imagem
-import javax.servlet.MultipartConfigElement;
-import java.io.InputStream;
-import java.io.ByteArrayOutputStream;
-
 public class Aplicacao {
     public static void main(String[] args) {
         port(8081);
         staticFileLocation("/public");
 
+        // Serviços
         DoacaoService doacaoService = new DoacaoService();
         PecaService pecaService = new PecaService();
         UsuarioService usuarioService = new UsuarioService();
 
-     // ===================== ROTA DE DOAÇÃO =====================
+        // ===================== ROTA DE DOAÇÃO =====================
         post("/doacao", (req, res) -> {
-        	
-        	//avisa ao spark que recebera arquivos e define um lugar temporario para ficar até ser processado
-        	req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
-        	
+            req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
+
             String nome = req.queryParams("nome");
             String descricao = req.queryParams("descricao");
             String tamanho = req.queryParams("tamanho");
             String categoria = req.queryParams("categoria");
 
-            //TRATANDO DA IMAGEM EM BINARIO
-            //array para guardar o codigo de uploud da foto
             byte[] foto = null;
-            
-            //encontra o formulario da imagem, no formulario, e faz o processamento
-            try(InputStream is = req.raw().getPart("imagem").getInputStream()){
-            	
-            	ByteArrayOutputStream buffer = new ByteArrayOutputStream(); //cria campo vazio de memoria
-            	
-            	int nRead;
-            	byte[] data = new byte[1024];
-            	
-            	//le a imagem em binario, e passa para o campo
-            	while((nRead = is.read(data, 0, data.length)) != -1) {
-            		buffer.write(data, 0, nRead);
-            	}
-            	
-            	foto = buffer.toByteArray(); //converte as informacoes em um array de bytes
-            	
-            } catch (Exception e) { //erro para processar imagem
-            	e.printStackTrace();
+
+            try (InputStream is = req.raw().getPart("imagem").getInputStream()) {
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                int nRead;
+                byte[] data = new byte[1024];
+
+                while ((nRead = is.read(data, 0, data.length)) != -1) {
+                    buffer.write(data, 0, nRead);
+                }
+
+                foto = buffer.toByteArray();
+
+            } catch (Exception e) {
+                e.printStackTrace();
                 res.status(400);
                 return "<script>alert('Erro ao processar a imagem :('); history.back();</script>";
             }
-            
-            //FIM DO TRATAMENTO DA IMAGEM
 
             Doacao d = new Doacao(nome, descricao, tamanho, categoria, foto);
             boolean ok = doacaoService.cadastrar(d);
 
-            res.type("application/json");
-
             if (ok) {
-                // Redireciona para a página de sucesso
                 res.redirect("/doacao/sucesso.html");
-                return null; // precisa retornar null após o redirect
+                return null;
             } else {
-                // Retorna mensagem de erro sem sair da página
                 res.status(400);
-                return "<script>alert('Erro ao cadastrar peça.'); history.back();</script>";
+                return "<script>alert('Erro ao cadastrar doação.'); history.back();</script>";
             }
         });
+
         // ===================== ROTA DE PEÇA =====================
         post("/peca", (req, res) -> {
-        	
-        	//avisa ao spark que recebera arquivos e define um lugar temporario para ficar até ser processado
-        	req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
-        	
+            req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
+
             String nome = req.queryParams("nome");
             String cor = req.queryParams("cor");
             String ocasiao = req.queryParams("ocasiao");
             String descricao = req.queryParams("descricao");
             String categoria = req.queryParams("categoria");
-            
-            //TRATANDO DA IMAGEM EM BINARIO
-            //array para guardar o codigo de uploud da foto
+            int idUsuario = Integer.parseInt(req.queryParams("idUsuario")); // <-- vem do front
+
             byte[] foto = null;
-            
-            //encontra o formulario da imagem, no formulario, e faz o processamento
-            try(InputStream is = req.raw().getPart("imagem").getInputStream()){
-            	
-            	ByteArrayOutputStream buffer = new ByteArrayOutputStream(); //cria campo vazio de memoria
-            	
-            	int nRead;
-            	byte[] data = new byte[1024];
-            	
-            	//le a imagem em binario, e passa para o campo
-            	while((nRead = is.read(data, 0, data.length)) != -1) {
-            		buffer.write(data, 0, nRead);
-            	}
-            	
-            	foto = buffer.toByteArray(); //converte as informacoes em um array de bytes
-            	
-            } catch (Exception e) { //erro para processar imagem
-            	e.printStackTrace();
+
+            try (InputStream is = req.raw().getPart("imagem").getInputStream()) {
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                int nRead;
+                byte[] data = new byte[1024];
+                while ((nRead = is.read(data, 0, data.length)) != -1) {
+                    buffer.write(data, 0, nRead);
+                }
+                foto = buffer.toByteArray();
+            } catch (Exception e) {
+                e.printStackTrace();
                 res.status(400);
                 return "<script>alert('Erro ao processar a imagem :('); history.back();</script>";
             }
-            
-            //FIM DO TRATAMENTO DA IMAGEM
 
+            // Monta objeto
             Peca p = new Peca(nome, cor, ocasiao, descricao, categoria, foto);
+            p.setIdUsuario(idUsuario); // associa ao dono
+
             boolean ok = pecaService.cadastrar(p);
 
             if (ok) {
-                // Se cadastrou com sucesso → redireciona para sucesso.html
-                res.redirect("/doacao/sucesso.html");
-                return null; // Spark exige um retorno nulo após redirect
+                res.redirect("/perfil/sucesso.html");
+                return null;
             } else {
-                // Se deu erro → mostra alerta e permanece na página
                 res.status(400);
                 res.type("text/html");
                 return "<script>alert('Erro ao cadastrar peça.'); history.back();</script>";
             }
         });
-
 
         // ===================== ROTA DE USUÁRIO =====================
         post("/usuario", (req, res) -> {
@@ -147,7 +128,7 @@ public class Aplicacao {
             }
         });
 
-        // ===================== ROTA DE LOGIN (funcionava antes) =====================
+        // ===================== ROTA DE LOGIN =====================
         post("/login", (req, res) -> {
             String username = req.queryParams("username");
             String senha = req.queryParams("senha");
@@ -181,5 +162,33 @@ public class Aplicacao {
                 return "{\"message\":\"Usuário não encontrado.\"}";
             }
         });
+
+     // ===================================================
+     // ROTA: Lista todas as peças de um usuário
+     // ===================================================
+        get("/pecas/:idUsuario", (req, res) -> {
+            int idUsuario = Integer.parseInt(req.params(":idUsuario"));
+            res.type("application/json");
+
+            List<Peca> pecas = pecaService.listarPorUsuario(idUsuario);
+
+            for (Peca p : pecas) {
+                byte[] bytes = p.getFoto();
+                if (bytes != null && bytes.length > 0) {
+                    String base64 = Base64.getEncoder().encodeToString(bytes);
+                    p.setFotoBase64(base64);
+                    System.out.println("✅ FOTO CONVERTIDA DE " + p.getNome() + ": " + base64.substring(0, 20) + "..."); // debug
+                } else {
+                    p.setFotoBase64("");
+                    System.out.println("⚠️ FOTO NULA DE " + p.getNome());
+                }
+                p.setFoto(null); // remove array bruto
+            }
+
+            String json = new Gson().toJson(pecas);
+            System.out.println("📦 JSON ENVIADO: " + json.substring(0, Math.min(200, json.length())) + "...");
+            return json;
+        });
+
     }
 }
