@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -11,38 +11,38 @@
 
 <body>
 
+    <!-- ===================== TOPO ===================== -->
     <header class="topbar">
-        <!--Colocar a logo GRWM no canto esquerdo-->
         <img src="imgs/logoimggrwm.png" alt="Logo GRWM" class="logo" id="openSideBar">
-        <!--Colocar o titulo no centro-->
-        <a href="../inicio/inicio.html"><img src="imgs/titulogrwm.png" alt="Título GRWM" class="titulo"></a>
+        <a href="../inicio/inicio.html">
+            <img src="imgs/titulogrwm.png" alt="Título GRWM" class="titulo">
+        </a>
     </header>
 
-    <!--Side bar que ficará escondida-->
+    <!-- ===================== SIDEBAR ===================== -->
     <aside class="sidebar" id="sidebar">
         <nav class="sidebar__nav">
-            <!--colocar aqui as paginas-->
             <a href="../inicio/inicio.html">Início</a>
             <a href="../perfil/perfil.html">Perfil</a>
             <a href="cadastroDoacoes.html">Doar</a>
         </nav>
     </aside>
 
-    <!--Conteúdo principal-->
+    <!-- ===================== CONTEÚDO ===================== -->
     <main>
         <div class="titulo-site">
             <h2>Doações</h2>
         </div>
 
-        <!--Exibição e filtro de roupas em doação-->
         <section>
             <div class="conteudo">
 
+                <!-- ===================== BARRA DE PESQUISA ===================== -->
                 <div class="container-search">
                     <div class="search-container">
                         <h3 class="subtitulo">Consultar peças disponíveis</h3>
-                        <input type="search" name="pesquisa"><a id="pesquisar" href="#"><i
-                                class="bi bi-search-heart"></i></a>
+                        <input type="search" name="pesquisa" placeholder="Buscar por nome...">
+                        <a id="pesquisar" href="#"><i class="bi bi-search-heart"></i></a>
                     </div>
 
                     <select name="filtro">
@@ -61,106 +61,13 @@
                 </div>
             </div>
 
-
-            <!--Cards-->
+            <!-- ===================== CARDS DINÂMICOS ===================== -->
             <div class="cards" id="cards-explorar">
-                <a href="Codigo/inicio/detalhesinicio.html" class="look-card" tabindex="0">
-                    <div class="look-card" id="blusa1" tabindex="0">
-                        <div class="look-card__media">
-                            <img src="imgs/blusa01.jpg" alt="Blusa 1">
-                        </div>
-                        <div class="look-card__label">Blusa Decotada</div>
-                    </div>
-                </a>
-
-                <div class="look-card" tabindex="0">
-                    <div class="look-card__media">
-                        <img src="imgs/oculos01.jpg" alt="Óculos 1">
-                    </div>
-                    <div class="look-card__label">Óculos de sol</div>
-                </div>
-
-                <div class="look-card" tabindex="0">
-                    <div class="look-card__media">
-                        <img src="imgs/vestido01.jpg" alt="Vestido 1">
-                    </div>
-                    <div class="look-card__label">Vestido Longo</div>
-                </div>
-
-                <div class="look-card" tabindex="0">
-                    <div class="look-card__media">
-                        <img src="imgs/saia01.jpg" alt="Saia 1">
-                    </div>
-                    <div class="look-card__label">Mini saia</div>
-                </div>
-
-                <div class="look-card" tabindex="0">
-                    <div class="look-card__media">
-                        <img src="imgs/sapato01.jpg" alt="Tenis 1">
-                    </div>
-                    <div class="look-card__label">Tênis</div>
-                </div>
-
-                <div class="look-card" tabindex="0">
-                    <div class="look-card__media">
-                        <img src="imgs/bolsa01.jpg" alt="Bolsa 1">
-                    </div>
-                    <div class="look-card__label">Bolsa</div>
-                </div>
-
-                <div class="look-card" tabindex="0">
-                    <div class="look-card__media">
-                        <img src="imgs/blusa02.jpg" alt="Blusa 1">
-                    </div>
-                    <div class="look-card__label">Blusa Regata</div>
-                </div>
-
-                <div class="look-card" tabindex="0">
-                    <div class="look-card__media">
-                        <img src="imgs/calca01.jpg" alt="Calça 1">
-                    </div>
-                    <div class="look-card__label">Calça Jeans</div>
-                </div>
-
-                <div class="look-card" tabindex="0">
-                    <div class="look-card__media">
-                        <img src="imgs/joia01.jpg" alt="Bracelete 1">
-                    </div>
-                    <div class="look-card__label">Bracelete</div>
-                </div>
-
-                <div class="look-card" tabindex="0">
-                    <div class="look-card__media">
-                        <img src="imgs/saia02.jpg" alt="Saia 2">
-                    </div>
-                    <div class="look-card__label">Mini saia</div>
-                </div>
-
-                <div class="look-card" tabindex="0">
-                    <div class="look-card__media">
-                        <img src="imgs/blusa03.jpg" alt="Blusa 3">
-                    </div>
-                    <div class="look-card__label">Blusa Ombro a Ombro</div>
-                </div>
-
-                <div class="look-card" tabindex="0">
-                    <div class="look-card__media">
-                        <img src="imgs/joia02.jpg" alt="Colar 1">
-                    </div>
-                    <div class="look-card__label">Colar</div>
-                </div>
-
-                <div class="look-card" tabindex="0">
-                    <div class="look-card__media">
-                        <img src="imgs/sapato02.jpg" alt="Sandalha 1">
-                    </div>
-                    <div class="look-card__label">Sandalha</div>
-                </div>
-
+                <!-- Os cards serão inseridos dinamicamente pelo doacao.js -->
+                <p class="mensagem-vazia">Carregando doações...</p>
             </div>
         </section>
     </main>
-
 
     <script src="doacao.js"></script>
 </body>

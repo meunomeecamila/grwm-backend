@@ -189,6 +189,30 @@ public class Aplicacao {
             System.out.println("📦 JSON ENVIADO: " + json.substring(0, Math.min(200, json.length())) + "...");
             return json;
         });
+        
+     // ===================================================
+     // ROTA: Lista todas as doações
+     // ===================================================
+     get("/doacoes", (req, res) -> {
+         res.type("application/json");
+
+         List<Doacao> doacoes = doacaoService.listarTodas();
+
+         // converte fotos BYTEA -> Base64
+         for (Doacao d : doacoes) {
+             byte[] bytes = d.getFoto();
+             if (bytes != null && bytes.length > 0) {
+                 String base64 = Base64.getEncoder().encodeToString(bytes);
+                 d.setFotoBase64(base64);
+             } else {
+                 d.setFotoBase64("");
+             }
+             d.setFoto(null); // remove bytes do JSON
+         }
+
+         return new Gson().toJson(doacoes);
+     });
+
 
     }
 }

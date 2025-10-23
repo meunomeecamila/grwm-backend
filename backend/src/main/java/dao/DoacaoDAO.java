@@ -3,6 +3,13 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import model.Doacao;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import java.util.List;
+import java.util.ArrayList;
+
+
 
 public class DoacaoDAO {
 
@@ -58,4 +65,31 @@ public class DoacaoDAO {
         return doacao;
 
     }
+    
+    public List<Doacao> listarTodas() {
+        List<Doacao> lista = new ArrayList<>();
+        String sql = "SELECT * FROM doacao";
+
+        try (Connection con = ConnectionFactory.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Doacao d = new Doacao();
+                d.setId(rs.getInt("id"));
+                d.setNome(rs.getString("nome"));
+                d.setDescricao(rs.getString("descricao"));
+                d.setTamanho(rs.getString("tamanho"));
+                d.setCategoria(rs.getString("categoria"));
+                d.setFoto(rs.getBytes("foto")); // caso tenha imagem
+                lista.add(d);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
 }

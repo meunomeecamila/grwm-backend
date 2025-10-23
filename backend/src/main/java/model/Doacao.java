@@ -7,6 +7,7 @@ public class Doacao {
     private String tamanho;
     private String categoria;
     private byte[] foto; // adicionando a foto como byte array
+    private String fotoBase64; // vai pro front
 
     public Doacao() {}
 
@@ -35,4 +36,7 @@ public class Doacao {
 
     public byte[] getFoto() { return foto; }
     public void setFoto(byte[] foto) { this.foto = foto; }
+    
+    public String getFotoBase64() { return fotoBase64; }
+    public void setFotoBase64(String fotoBase64) { this.fotoBase64 = fotoBase64; }
 }

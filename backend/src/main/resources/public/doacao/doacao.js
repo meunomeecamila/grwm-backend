@@ -43,3 +43,59 @@ document.getElementById("formDoacao").addEventListener("submit", async (e) => {
         alert(data.message);
     }
 });
+
+// ===================================================================
+// DOACAO.JS — EXIBE TODAS AS DOAÇÕES NO FEED AUTOMATICAMENTE
+// ===================================================================
+
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("✅ doacao.js carregado!");
+
+  const container = document.getElementById("cards-explorar");
+
+  try {
+    const res = await fetch("/doacoes");
+    const doacoes = await res.json();
+
+    console.log("📦 Doações recebidas:", doacoes);
+
+    // Limpa o container
+    container.innerHTML = "";
+
+    if (!doacoes || doacoes.length === 0) {
+      container.innerHTML = "<p>Nenhuma doação cadastrada ainda 😢</p>";
+      return;
+    }
+
+    // Cria os cards dinamicamente
+    doacoes.forEach(d => {
+      console.log("🧱 Montando card de:", d.nome);
+
+      const card = document.createElement("div");
+      card.classList.add("look-card");
+
+      const media = document.createElement("div");
+      media.classList.add("look-card__media");
+
+      const img = document.createElement("img");
+      if (d.fotoBase64 && d.fotoBase64.length > 0) {
+        img.src = `data:image/*;base64,${d.fotoBase64}`;
+      } else {
+        img.src = "imgs/imagem-padrao.png";
+      }
+      img.alt = d.nome;
+      media.appendChild(img);
+
+      const label = document.createElement("div");
+      label.classList.add("look-card__label");
+      label.textContent = `${d.nome} - ${d.categoria}`;
+
+      card.appendChild(media);
+      card.appendChild(label);
+      container.appendChild(card);
+    });
+  } catch (error) {
+    console.error("❌ Erro ao carregar doações:", error);
+    container.innerHTML = "<p>Erro ao carregar doações :(</p>";
+  }
+});
