@@ -112,5 +112,33 @@ public class PecaDAO {
 
         return lista;
     }
+    
+    public List<Peca> listarTodas() {
+        List<Peca> lista = new ArrayList<>();
+        String sql = "SELECT * FROM peca";
+
+        try (Connection con = ConnectionFactory.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Peca p = new Peca();
+                p.setId(rs.getInt("id"));
+                p.setNome(rs.getString("nome"));
+                p.setCor(rs.getString("cor"));
+                p.setOcasiao(rs.getString("ocasiao"));
+                p.setDescricao(rs.getString("descricao"));
+                p.setCategoria(rs.getString("categoria"));
+                p.setFoto(rs.getBytes("foto"));
+                lista.add(p);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
 
 }

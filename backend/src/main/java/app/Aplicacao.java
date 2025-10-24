@@ -17,6 +17,7 @@ import model.Usuario;
 import service.DoacaoService;
 import service.PecaService;
 import service.UsuarioService;
+import java.util.ArrayList;
 
 public class Aplicacao {
     public static void main(String[] args) {
@@ -212,6 +213,37 @@ public class Aplicacao {
 
          return new Gson().toJson(doacoes);
      });
+     
+  // ===================================================
+  // ROTA: Lista todas as peças e doações (para o início)
+  // ===================================================
+  get("/inicio", (req, res) -> {
+      res.type("application/json");
+
+      List<Peca> pecas = pecaService.listarTodas();   // você vai criar isso no service já já
+      List<Doacao> doacoes = doacaoService.listarTodas();
+
+      // converte fotos para Base64 antes de enviar
+      for (Peca p : pecas) {
+          if (p.getFoto() != null) {
+              p.setFotoBase64(Base64.getEncoder().encodeToString(p.getFoto()));
+          }
+      }
+
+      for (Doacao d : doacoes) {
+          if (d.getFoto() != null) {
+              d.setFotoBase64(Base64.getEncoder().encodeToString(d.getFoto()));
+          }
+      }
+
+      // junta tudo em uma lista só
+      List<Object> tudo = new ArrayList<>();
+      tudo.addAll(pecas);
+      tudo.addAll(doacoes);
+
+      return new com.google.gson.Gson().toJson(tudo);
+  });
+
 
 
     }

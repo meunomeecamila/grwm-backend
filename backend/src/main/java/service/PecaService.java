@@ -29,4 +29,9 @@ public class PecaService {
     public List<Peca> listarPorUsuario(int idUsuario) {
         return dao.listarPorUsuario(idUsuario);
     }
+    
+    public List<Peca> listarTodas() {
+        return dao.listarTodas();
+    }
+
 }
