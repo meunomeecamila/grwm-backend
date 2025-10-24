@@ -1,101 +1,138 @@
-// Pega os elementos
-const sidebar = document.getElementById('sidebar');
-const logoBtn  = document.getElementById('openSideBar'); // mantém igual ao seu HTML
-
-// Configurações (bata com seu CSS)
-const SIDEBAR_WIDTH = 250; // mesma largura definida na .sidebar
-const PADDING_LEFT  = 35;  // distância inicial (left: 16px)
-
-// Animação suave da logo (sem tocar no CSS)
-logoBtn.style.transition = 'left 0.3s ease';
-// Garante que fique clicável acima da sidebar
-logoBtn.style.zIndex = 1101;
-
-// Toggle: abre/fecha a sidebar e move a logo
-logoBtn.addEventListener('click', () => {
-  sidebar.classList.toggle('active');
-
-  if (sidebar.classList.contains('active')) {
-    // empurra a logo para a direita quando a barra abre
-    logoBtn.style.left = (SIDEBAR_WIDTH + PADDING_LEFT) + 'px';
-  } else {
-    // volta a logo para a posição original
-    logoBtn.style.left = PADDING_LEFT + 'px';
-  }
-});
-
-document.getElementById("formDoacao").addEventListener("submit", async (e) => {
-    e.preventDefault(); // impede recarregamento automático
-    const formData = new FormData(e.target);
-
-    const response = await fetch("/doacao", {
-        method: "POST",
-        body: formData
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-        // redireciona se deu certo
-        window.location.href = "sucesso.html";
-    } else {
-        // exibe alerta e continua na página
-        alert(data.message);
-    }
-});
-
 // ===================================================================
-// DOACAO.JS — EXIBE TODAS AS DOAÇÕES NO FEED AUTOMATICAMENTE
+// GRWM — DOACAO.JS
+// Funciona tanto em doacao.html (feed) quanto em cadastroDoacoes.html (cadastro)
+// Inclui: Sidebar, Cadastro, e Feed automático
 // ===================================================================
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ doacao.js carregado!");
 
+  // ==============================
+  // 🩷 1️⃣ SIDEBAR INTERATIVA
+  // ==============================
+  const sidebar = document.getElementById('sidebar');
+  const logoBtn = document.getElementById('openSideBar');
+
+  if (sidebar && logoBtn) {
+    const SIDEBAR_WIDTH = 250; // mesma largura definida no CSS (.sidebar)
+    const PADDING_LEFT = 35;   // distância inicial
+
+    // deixa a animação mais suave
+    logoBtn.style.transition = 'left 0.3s ease';
+    logoBtn.style.zIndex = 1101;
+
+    // Toggle de abrir/fechar
+    logoBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+
+      if (sidebar.classList.contains('active')) {
+        logoBtn.style.left = (SIDEBAR_WIDTH + PADDING_LEFT) + 'px';
+      } else {
+        logoBtn.style.left = PADDING_LEFT + 'px';
+      }
+    });
+  }
+
+  // ==============================
+  // 🩷 2️⃣ CADASTRO DE DOAÇÃO
+  // ==============================
+  const formDoacao = document.getElementById("formDoacao");
+  if (formDoacao) {
+    console.log("📋 Página de cadastro detectada.");
+
+    formDoacao.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+
+      try {
+        const response = await fetch("/doacao", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          window.location.href = "sucesso.html";
+        } else {
+          alert(data.message || "Erro ao cadastrar doação.");
+        }
+      } catch (error) {
+        console.error("❌ Erro ao enviar doação:", error);
+        alert("Erro ao cadastrar a doação.");
+      }
+    });
+  }
+
+  // ==============================
+  // 🩷 3️⃣ FEED DE DOAÇÕES AUTOMÁTICO
+  // ==============================
   const container = document.getElementById("cards-explorar");
+  if (container) {
+    console.log("📰 Página de feed detectada.");
 
-  try {
-    const res = await fetch("/doacoes");
-    const doacoes = await res.json();
+    // Mostra um “loading” enquanto carrega
+    container.innerHTML = `
+      <div class="loading" style="text-align:center; margin-top:30px;">
+        <i class="bi bi-arrow-repeat" style="font-size:2rem; animation:spin 1s linear infinite;"></i>
+        <p>Carregando doações...</p>
+      </div>
+    `;
 
-    console.log("📦 Doações recebidas:", doacoes);
+    async function carregarDoacoes() {
+      try {
+        const res = await fetch("/doacoes");
+        const doacoes = await res.json();
 
-    // Limpa o container
-    container.innerHTML = "";
+        console.log("📦 Doações recebidas:", doacoes);
 
-    if (!doacoes || doacoes.length === 0) {
-      container.innerHTML = "<p>Nenhuma doação cadastrada ainda 😢</p>";
-      return;
+        container.innerHTML = "";
+
+        if (!doacoes || doacoes.length === 0) {
+          container.innerHTML = "<p>Nenhuma doação cadastrada ainda 😢</p>";
+          return;
+        }
+
+        // Cria cards dinamicamente
+        doacoes.forEach(d => {
+          console.log("🧱 Montando card de:", d.nome);
+
+          const card = document.createElement("div");
+          card.classList.add("look-card");
+
+          const media = document.createElement("div");
+          media.classList.add("look-card__media");
+
+          const img = document.createElement("img");
+          img.src = d.fotoBase64 && d.fotoBase64.length > 0
+            ? `data:image/*;base64,${d.fotoBase64}`
+            : "imgs/imagem-padrao.png";
+          img.alt = d.nome;
+          media.appendChild(img);
+
+          const label = document.createElement("div");
+          label.classList.add("look-card__label");
+          label.textContent = `${d.nome} - ${d.categoria}`;
+
+          card.appendChild(media);
+          card.appendChild(label);
+          container.appendChild(card);
+        });
+      } catch (error) {
+        console.error("❌ Erro ao carregar doações:", error);
+        container.innerHTML = "<p>Erro ao carregar doações :(</p>";
+      }
     }
 
-    // Cria os cards dinamicamente
-    doacoes.forEach(d => {
-      console.log("🧱 Montando card de:", d.nome);
-
-      const card = document.createElement("div");
-      card.classList.add("look-card");
-
-      const media = document.createElement("div");
-      media.classList.add("look-card__media");
-
-      const img = document.createElement("img");
-      if (d.fotoBase64 && d.fotoBase64.length > 0) {
-        img.src = `data:image/*;base64,${d.fotoBase64}`;
-      } else {
-        img.src = "imgs/imagem-padrao.png";
-      }
-      img.alt = d.nome;
-      media.appendChild(img);
-
-      const label = document.createElement("div");
-      label.classList.add("look-card__label");
-      label.textContent = `${d.nome} - ${d.categoria}`;
-
-      card.appendChild(media);
-      card.appendChild(label);
-      container.appendChild(card);
-    });
-  } catch (error) {
-    console.error("❌ Erro ao carregar doações:", error);
-    container.innerHTML = "<p>Erro ao carregar doações :(</p>";
+    carregarDoacoes();
   }
 });
+
+// ===================================================================
+// CSS Inline extra para o spinner
+// ===================================================================
+const style = document.createElement("style");
+style.textContent = `
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+`;
+document.head.appendChild(style);
