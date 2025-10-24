@@ -40,7 +40,27 @@ public class Aplicacao {
 
             byte[] foto = null;
 
-            try (InputStream is = req.raw().getPart("imagem").getInputStream()) {
+            try {
+                if (req.raw().getPart("imagem") != null) {
+                    try (InputStream is = req.raw().getPart("imagem").getInputStream()) {
+                        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                        int nRead;
+                        byte[] data = new byte[1024];
+
+                        while ((nRead = is.read(data, 0, data.length)) != -1) {
+                        buffer.write(data, 0, nRead);
+                        }
+
+                        foto = buffer.toByteArray();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        // Se não enviou foto, usa padrão
+        if (foto == null || foto.length == 0) {
+            try (InputStream is = Aplicacao.class.getResourceAsStream("/public/imgs/imagem-padrao.png")) {
                 ByteArrayOutputStream buffer = new ByteArrayOutputStream();
                 int nRead;
                 byte[] data = new byte[1024];
@@ -50,12 +70,12 @@ public class Aplicacao {
                 }
 
                 foto = buffer.toByteArray();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                res.status(400);
-                return "<script>alert('Erro ao processar a imagem :('); history.back();</script>";
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                foto = new byte[0]; // fallback
             }
+        }
+
 
             Doacao d = new Doacao(nome, descricao, tamanho, categoria, foto);
             boolean ok = doacaoService.cadastrar(d);

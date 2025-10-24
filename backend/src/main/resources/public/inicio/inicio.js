@@ -41,22 +41,18 @@ document.getElementById("search").addEventListener("input", function () {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
-  console.log("✅ inicio.js carregado!");
-
   const container = document.getElementById("cards-inicio");
   if (!container) return;
 
   container.innerHTML = `<p>Carregando looks e doações...</p>`;
 
   try {
-    const res = await fetch("/inicio");
+    const res = await fetch("/inicio"); // pega todos os itens do backend
     const itens = await res.json();
 
-    console.log("📦 Itens recebidos:", itens);
     container.innerHTML = "";
-
     if (!itens || itens.length === 0) {
-      container.innerHTML = "<p>Nenhum item disponível ainda 😢</p>";
+      container.innerHTML = "<p>Nenhum item disponível 😢</p>";
       return;
     }
 
@@ -68,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       media.classList.add("look-card__media");
 
       const img = document.createElement("img");
-      img.src = item.fotoBase64 && item.fotoBase64.length > 0
+      img.src = item.fotoBase64
         ? `data:image/*;base64,${item.fotoBase64}`
         : "imgs/imagem-padrao.png";
       img.alt = item.nome;
@@ -76,17 +72,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const label = document.createElement("div");
       label.classList.add("look-card__label");
-
       const tipo = item.ocasiao ? "Peça" : "Doação";
       label.textContent = `${item.nome} (${tipo})`;
 
       card.appendChild(media);
       card.appendChild(label);
+
+      card.addEventListener("click", () => {
+        window.location.href = `detalhes.html?id=${item.id}`;
+      });
+
       container.appendChild(card);
     });
+
   } catch (error) {
-    console.error("❌ Erro ao carregar itens:", error);
+    console.error("Erro ao carregar itens:", error);
     container.innerHTML = "<p>Erro ao carregar conteúdo :(</p>";
   }
 });
-
