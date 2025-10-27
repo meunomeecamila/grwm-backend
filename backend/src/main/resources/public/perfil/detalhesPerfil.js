@@ -17,7 +17,7 @@ window.onload = async function(){
 	    }
 	
 	    //carregar os detalhes da peca
-        const res = await fetch(`/peca/${id}`); 
+        const res = await fetch(`/api/peca/${id}`); 
         
         if (!res.ok) {
 			//erro

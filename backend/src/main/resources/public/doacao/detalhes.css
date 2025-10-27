@@ -247,3 +247,56 @@ body {
   }
 }
 
+/*Pagina de erro*/
+.container-erro {
+  margin-top: 0px;
+  /* diminui o espaço */
+  display: flex;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 40px auto;
+  margin-top: 40px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.erro {
+  min-width: 300px;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  justify-content: center;
+  text-align: center;
+}
+
+.erro h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.erro p {
+  font-size: 16px;
+  color: #8b2f3a;
+  font-weight: bold;
+}
+
+.erro span {
+  font-weight: normal;
+  color: #4a2f3a;
+}
+
+#botao-voltar{
+  margin: 15px;
+  height: 60px;
+  font-size: 1.5em;
+  border-radius: 8px;
+  border-style: none;
+  background-color: #DBACB8;
+}
+

@@ -16,7 +16,7 @@
   </header>
 
   <!-- Botão de voltar -->
-  <a href="inicio.html" id="back-btn">
+  <a href="doacao.html" id="back-btn">
     <i class="fa-solid fa-arrow-left"></i>
   </a>
 
@@ -27,18 +27,16 @@
     <div class="details-section">
 
       <!--Possui botão compartilhar-->
-      <div class="titulo-compartilhar"><h1 id="titulo-peca">Blusa Decotada</h1>
+      <div class="titulo-compartilhar"><h1 id="titulo-doacao">Blusa Decotada</h1>
         <div class="botao-compartilhar">
         <button id="compartilhar"><i class="fa fa-share-alt" aria-hidden="true"></i></button>
         </div>
       </div>
 
-      <p>Cor da peça: <span id="cor">Colorido</spam></p>
-      <p>Tipo: <span id="tipo">Blusa</span></p>
-      <p>Ocasião: <span id="ocasiao">Casual</span></p>
+      <p>Tipo: <span id="categoria">Blusa</span></p>
       <p>Tamanho:<span id="tamanho"> P</span></p>
       <!--<p>Marca:<span id="marca"></span></p>-->
-      <p>Descrição:<span> Blusinha refrescante para o verão, linda e muito colorida!</span></p>
+      <p>Descrição:<span id="descricao"> Blusinha refrescante para o verão, linda e muito colorida!</span></p>
       <br>
       <br>
       <div class="button">
@@ -76,37 +74,7 @@
     </div>
   </div>
 
-  <script>
-    async function loadDetails() {
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get("id");
-      if (!id) return;
-
-      try {
-        const res = await fetch(`/item?id=${id}`);
-        if (!res.ok) throw new Error("Peça não encontrada");
-
-        const item = await res.json();
-
-        document.querySelector('.image-section img').src = item.fotoBase64
-          ? `data:image/*;base64,${item.fotoBase64}`
-          : "imgs/imagem-padrao.png";
-        document.querySelector('.details-section h1').textContent = item.nome;
-        document.querySelector('.details-section p:nth-of-type(1) span').textContent = item.cor;
-        document.querySelector('.details-section p:nth-of-type(2) span').textContent = item.categoria;
-        document.querySelector('.details-section p:nth-of-type(3) span').textContent = item.ocasiao;
-        document.querySelector('.details-section p:nth-of-type(4) span').textContent = item.tamanho || "Não definido";
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    window.onload = loadDetails;
-
-
-  </script>
-
-  <script src="detalhesDoacao.js"></script>
+  <script src="detalheDoacao.js"></script>
 
 </body>
 

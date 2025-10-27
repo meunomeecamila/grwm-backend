@@ -268,14 +268,14 @@ public class Aplicacao {
   //===================================================
   // ROTA: Busca peça por ID 
   // ===================================================
-  get("/peca/:id", (req, res) -> {
+  get("/api/peca/:id", (req, res) -> {
       res.type("application/json");
       int id = Integer.parseInt(req.params(":id"));
 
       Peca p = pecaService.getById(id); 
 
       if (p != null) {
-          // Converte a foto para Base64 antes de enviar
+          //converte foto
           byte[] bytes = p.getFoto();
           if (bytes != null && bytes.length > 0) {
               String base64 = Base64.getEncoder().encodeToString(bytes);
@@ -293,7 +293,7 @@ public class Aplicacao {
   // ===================================================
   // ROTA: Excluir peça
   // ===================================================
-  delete("/peca/:id", (req, res) -> {
+  delete("peca/:id", (req, res) -> {
       res.type("application/json");
       
       int id = Integer.parseInt(req.params(":id"));
@@ -310,7 +310,30 @@ public class Aplicacao {
   });
   
   
+    //===================================================
+    // ROTA: Busca doação por ID
+   // ===================================================
+ get("/api/doacao/:id", (req, res) -> {
+     res.type("application/json");
+     int id = Integer.parseInt(req.params(":id"));
 
+     Doacao d = doacaoService.getById(id); 
+
+     if (d != null) {
+    	 //converte foto
+         byte[] bytes = d.getFoto();
+         if (bytes != null && bytes.length > 0) {
+             String base64 = Base64.getEncoder().encodeToString(bytes);
+             d.setFotoBase64(base64);
+         }
+         d.setFoto(null); 
+
+         return new Gson().toJson(d);
+     } else {
+         res.status(404);
+         return "{\"message\":\"Doação não encontrada.\"}";
+     }
+ });
 
 
     }

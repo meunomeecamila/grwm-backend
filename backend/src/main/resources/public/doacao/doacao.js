@@ -116,6 +116,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
           card.appendChild(media);
           card.appendChild(label);
+		  
+		  //cards clicaveis
+		  card.addEventListener('click', () => {
+		              window.location.href = `detalhesDoacao.html?id=${d.id}`;
+		            });
+		  
           container.appendChild(card);
         });
       } catch (error) {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Peça</title>
+    <link rel="stylesheet" href="detalhes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+    <header class="topbar">
+        <!--Colocar o titulo no centro-->
+        <img src="imgs/titulogrwm.png" alt="Título GRWM" class="titulo">
+    </header>
+
+    <!-- Botão de voltar -->
+    <a href="../inicio/inicio.html" id="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+
+    <div class="container-erro">
+        <div class="erro">
+            <h1>Ocorreu um erro...</h1>
+            <p>Parece que ocorreu um erro, e não conseguimos acessar a esta peça!</p>
+            <button id="botao-voltar">Voltar a Página Inicial</button>
+        </div>
+
+    </div>
+
+    <script src="detalhesPerfil.js"></script>
+
+    <script>
+        document.getElementById("botao-voltar").addEventListener("click", () => {
+            window.location.href = "../inicio/inicio.html";
+        });
+    </script>
+
+</body>
+
+</html>
