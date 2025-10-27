@@ -691,4 +691,83 @@ input[type="file"] {
   z-index: 1;
 }
 
+/* ===========================
+   Página de Detalhes
+=========================== */
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 30px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.image-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.image-section img {
+  width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.details-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.details-section h1 {
+  margin-top: 0;
+  font-size: 28px;
+}
+
+.details-section p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.details-section span {
+  font-weight: bold;
+  color: #8b2f3a;
+}
+
+.info-box {
+  background-color: #f0e0e3;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.comentario-box {
+  background-color: #f0e0e3;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.container {
+  margin-top: 0px; /* diminui o espaço */
+  /* se quiser encostar totalmente no header: margin-top: 0; */
+}
+
+.explorar-container {
+  margin-top: 0px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
 
