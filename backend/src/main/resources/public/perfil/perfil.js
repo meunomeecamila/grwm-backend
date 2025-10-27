@@ -133,6 +133,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         mediaDiv.appendChild(img);
         card.appendChild(mediaDiv);
         card.appendChild(labelDiv);
+		
+		//clique para ir para detalhes
+		card.addEventListener('click', () => {
+		            window.location.href = `detalhes.html?id=${p.id}`;
+		        });
+		
         cardsDiv.appendChild(card);
       });
 

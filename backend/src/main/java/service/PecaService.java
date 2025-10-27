@@ -33,5 +33,12 @@ public class PecaService {
     public List<Peca> listarTodas() {
         return dao.listarTodas();
     }
+    
+    // ======================================================
+    // Excluir peça por ID
+    // ======================================================
+    public boolean excluir(int id) {
+        return dao.excluir(id);
+    }
 
 }

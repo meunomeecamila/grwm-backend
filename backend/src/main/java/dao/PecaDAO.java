@@ -139,6 +139,34 @@ public class PecaDAO {
 
         return lista;
     }
+   
+    // =========================================================
+    // EXCLUIR PEÇA POR ID
+    // =========================================================
+    
+    public boolean excluir(int id) {
+    	String sql = "DELETE FROM peca WHERE id = ?";
+    	
+    	try(Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)){
+    		ps.setInt(1, id);
+            int linhasAfetadas = ps.executeUpdate(); 
 
+            // Verifica se alguma linha foi realmente deletada
+            if (linhasAfetadas > 0) {
+                System.out.println("Peça com ID " + id + " excluída com sucesso!");
+                return true;
+            } else {
+                System.out.println("Nenhuma peça encontrada com ID " + id + " para excluir.");
+                return false; 
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao excluir peça no banco:");
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 
 }

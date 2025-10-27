@@ -263,6 +263,53 @@ public class Aplicacao {
 
       return new com.google.gson.Gson().toJson(tudo);
   });
+  
+  
+  //===================================================
+  // ROTA: Busca peça por ID 
+  // ===================================================
+  get("/peca/:id", (req, res) -> {
+      res.type("application/json");
+      int id = Integer.parseInt(req.params(":id"));
+
+      Peca p = pecaService.getById(id); 
+
+      if (p != null) {
+          // Converte a foto para Base64 antes de enviar
+          byte[] bytes = p.getFoto();
+          if (bytes != null && bytes.length > 0) {
+              String base64 = Base64.getEncoder().encodeToString(bytes);
+              p.setFotoBase64(base64);
+          }
+          p.setFoto(null); 
+
+          return new Gson().toJson(p);
+      } else {
+          res.status(404);
+          return "{\"message\":\"Peça não encontrada.\"}";
+      }
+  });
+
+  // ===================================================
+  // ROTA: Excluir peça
+  // ===================================================
+  delete("/peca/:id", (req, res) -> {
+      res.type("application/json");
+      
+      int id = Integer.parseInt(req.params(":id"));
+
+      boolean ok = pecaService.excluir(id);
+
+      if (ok) {
+          res.status(200);
+          return "{\"message\": \"Peça excluída com sucesso!\"}";
+      } else { //Erro
+          res.status(500); 
+          return "{\"message\": \"Erro ao excluir peça.\"}";
+      }
+  });
+  
+  
 
 
 
