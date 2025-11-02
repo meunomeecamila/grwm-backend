@@ -1,0 +1,301 @@
+/* ===========================
+   Global / Body
+=========================== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7e9eb;
+  color: #4a2f3a;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===========================
+   Topbar / Logo / Título
+=========================== */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* centraliza conteúdo */
+  position: relative;       /* permite posicionamento da logo */
+  height: 70px;
+  background-color: #f7e9eb;
+  padding: 0 16px;
+}
+
+/* Logo canto esquerdo */
+.logo {
+  height: 80px;
+  position: absolute;
+  left: 20px;  /* encosta no canto esquerdo */
+  top: 50%;
+  transform: translateY(-50%); /* centraliza verticalmente */
+  margin-top: 30px;
+  z-index: 1000;
+  margin-left: 20px;
+}
+
+.titulo {
+  height: 125px;
+  margin-top: 40px;
+}
+
+/* ===========================
+   Sidebar
+=========================== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;             /* começa fora da tela */
+  width: 250px;
+  height: 100%;
+  background-color: #e4cfd3;
+  box-shadow: -2px 0 6px rgba(0,0,0,0.15);
+  transition: left 0.3s ease;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar__nav a {
+  text-decoration: none;
+  color: #5c3d3f;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* ===========================
+   Top Section
+=========================== */
+.top-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 50px 0 20px;
+}
+
+.top-section h2 {
+  width: 100%;
+  text-align: left;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.explorar-container{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color:#6E484A;
+}
+
+/* ===========================
+   Botão de voltar
+=========================== */
+
+#back-btn {
+  display: inline-block;
+  text-decoration: none;
+  background: none;       /* sem fundo */
+  border: none;
+  cursor: pointer;
+  margin: 60px;
+}
+
+#back-btn i {
+  font-size: 24px;        /* tamanho da seta */
+  color: #82204f;         /* rosa escuro */
+  transition: color 0.2s;
+}
+
+#back-btn i:hover {
+  color: #a83366;         /* tom mais claro quando passar o mouse */
+}
+
+/* ===========================
+   Página de Detalhes
+=========================== */
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 30px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.image-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.image-section img {
+  width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.details-section {
+  flex: 1;
+  min-width: 300px;
+  display: flex; 
+  flex-direction: column;
+}
+
+.details-section h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.details-section p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #8b2f3a;
+  font-weight: bold;
+}
+
+.details-section span {
+  font-weight: normal;
+  color: #4a2f3a;
+}
+
+.info-box {
+  background-color: #f0e0e3;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.comentario-box {
+  background-color: #f0e0e3;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.container {
+  margin-top: 0px; /* diminui o espaço */
+  /* se quiser encostar totalmente no header: margin-top: 0; */
+}
+
+.explorar-container {
+  margin-top: 0px;
+}
+
+#botao-adquirir{
+  margin: 15px;
+  width: 160px;
+  height: 60px;
+  font-size: 1.5em;
+  border-radius: 8px;
+  border-style: none;
+  background-color: #DBACB8;
+}
+
+.button{
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.titulo-compartilhar{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.botao-compartilhar{
+  display: flex;
+  margin-left: auto;
+}
+
+#compartilhar{
+  color: #bd3f4e;
+  background-color: #fff;
+  width: 35px;
+  height: 35px;
+  border-width: 1px;
+  border-radius: 20%;
+  border-color: #bd3f4e;
+
+}
+
+#compartilhar i{
+  font-size: 1.5em;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+/*Pagina de erro*/
+.container-erro {
+  margin-top: 0px;
+  /* diminui o espaço */
+  display: flex;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 40px auto;
+  margin-top: 40px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.erro {
+  min-width: 300px;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  justify-content: center;
+  text-align: center;
+}
+
+.erro h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.erro p {
+  font-size: 16px;
+  color: #8b2f3a;
+  font-weight: bold;
+}
+
+.erro span {
+  font-weight: normal;
+  color: #4a2f3a;
+}
+
+#botao-voltar{
+  margin: 15px;
+  height: 60px;
+  font-size: 1.5em;
+  border-radius: 8px;
+  border-style: none;
+  background-color: #DBACB8;
+}
