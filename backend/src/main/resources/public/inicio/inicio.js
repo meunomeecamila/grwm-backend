@@ -69,20 +69,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         : "imgs/imagem-padrao.png";
       img.alt = item.nome;
       media.appendChild(img);
+	  
+	        const label = document.createElement("div");
+	        label.classList.add("look-card__label");
 
-      const label = document.createElement("div");
-      label.classList.add("look-card__label");
-      const tipo = item.ocasiao ? "Peça" : "Doação";
-      label.textContent = `${item.nome} (${tipo})`;
+	        const tipo = item.ocasiao ? "peca" : "doacao"; 
+	        
+	        const tipoDisplay = item.ocasiao ? "Peça" : "Doação";
+	        label.textContent = `${item.nome} (${tipoDisplay})`;
 
-      card.appendChild(media);
-      card.appendChild(label);
+	        card.appendChild(media);
+	        card.appendChild(label);
 
-      card.addEventListener("click", () => {
-        window.location.href = `detalhes.html?id=${item.id}`;
-      });
+	        //envia tipo pra detlahesinicio na url
+	        card.addEventListener("click", () => {
+	          window.location.href = `detalhesinicio.html?tipo=${tipo}&id=${item.id}`;
+	        });
 
-      container.appendChild(card);
+	        container.appendChild(card);
     });
 
   } catch (error) {

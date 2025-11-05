@@ -1,43 +1,59 @@
-window.onload = async function() {
-
-    //para pagina de erro, caso nao encontre a peca
-    const paginaAtual = window.location.pathname.split('/').pop();
-    if (paginaAtual === 'erroDoacao.html') {
-        return; 
-    }
-
-    try {
+async function loadDetails() {
         const params = new URLSearchParams(window.location.search);
-        const id = params.get("id"); //pega url
-        
-        if (!id) { //erro
-            throw new Error("ID não encontrado na URL.");
+        const id = params.get("id");
+        const tipo = params.get("tipo"); // peca ou doacao
+
+        if (!id || !tipo) {
+            alert("Erro: ID ou tipo do item não especificado.");
+            window.location.href = 'erroInicio.html';
+            return;
         }
 
-        //carregar detalhes
-        const res = await fetch(`/api/doacao/${id}`); 
         
-        if (!res.ok) { //erro
-            throw new Error("Doação não encontrada no banco de dados.");
+        const url = `/api/${tipo}/${id}`; 
+
+        try {
+            const res = await fetch(url);
+            if (!res.ok) {
+                 throw new Error("Item não encontrado (ID: " + id + ", Tipo: " + tipo + ")");
+            }
+
+            const item = await res.json();
+
+            // Preenche a imagem
+            document.querySelector('.image-section img').src = item.fotoBase64
+                ? `data:image/jpeg;base64,${item.fotoBase64}` 
+                : "imgs/imagem-padrao.png";
+            
+            //preenche titulo
+            document.querySelector('.details-section .item-nome').textContent = item.nome; 
+
+            // Preenche os detalhes 
+            document.querySelector('.item-categoria').innerHTML = `<span>Categoria:</span> ${item.categoria || "Não definida"}`;
+            document.querySelector('.item-tamanho').innerHTML = `<span>Tamanho:</span> ${item.tamanho || "Não definido"}`;
+            document.querySelector('.item-descricao').innerHTML = `<span>Descrição:</span> ${item.descricao || "Sem descrição"}`;
+
+            // Seleciona somente pecas
+            const corEl = document.querySelector('.item-cor');
+            const ocasiaoEl = document.querySelector('.item-ocasiao');
+
+            if (tipo === 'peca') {
+                // Se for peca, preenche e mostra
+                corEl.innerHTML = `<span>Cor:</span> ${item.cor || "Não definida"}`;
+                ocasiaoEl.innerHTML = `<span>Ocasião:</span> ${item.ocasiao || "Não definida"}`;
+                corEl.style.display = 'block';      // Garante que seja visível
+                ocasiaoEl.style.display = 'block'; // Garante que seja visível
+            } else {
+                // Se for doacao, esconde esses campos
+                corEl.style.display = 'none';
+                ocasiaoEl.style.display = 'none';
+            }
+
+        } catch (error) {
+            console.error("Erro ao carregar detalhes:", error);
+            alert("Não foi possível carregar os detalhes do item.");
+            window.location.href = 'erroInicio.html'; // Descomente para redirecionar em caso de erro
         }
-
-        const item = await res.json();
-
-        //Preenche os campos da pagina
-        document.querySelector('.image-section img').src = item.fotoBase64
-            ? `data:image/jpeg;base64,${item.fotoBase64}`
-            : "imgs/imagem-padrao.png";
-        
-        document.getElementById('titulo-doacao').textContent = item.nome;
-        document.getElementById('categoria').textContent = item.categoria;
-        document.getElementById('tamanho').textContent = item.tamanho;
-        document.getElementById('descricao').textContent = item.descricao;
-
-    } catch (error) {
-        console.error("Erro ao carregar detalhes da doação:", error.message);
-        
-        alert("Ocorreu um erro: " + error.message);
-        
-        window.location.href = 'erroInicio.html';
     }
-};
+
+    window.onload = loadDetails;
