@@ -771,3 +771,81 @@ input[type="file"] {
   }
 }
 
+/*Iza Estiliza*/
+/* Imagem decorativa no canto */
+.imagem-canto {
+  position: fixed;        /* fica fixa na tela mesmo com rolagem */
+  bottom: 20px;           /* distância da borda inferior */
+  right: 20px;            /* distância da borda direita */
+  width: 150px;           /* tamanho da imagem (ajuste conforme quiser) */
+  opacity: 0.9;           /* levemente translúcida */
+  z-index: 10;            /* garante que fique acima do fundo */
+  border-radius: 10px;    /* opcional, deixa as bordas suaves */
+}
+.imagem-canto img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;    /* combina com o container */
+}
+
+/* Balão de fala */
+.balao-fala {
+  position: fixed;
+  bottom: 160px;              /* posição vertical */
+  right: 120px;               /* posição horizontal */
+  background-color: #ffffff;  /* fundo rosado */
+  border: 2px solid #f3b6d0;
+  border-radius: 20px;
+  padding: 15px 20px;
+  width: 240px;
+  font-family: "Poppins", sans-serif;
+  color: #7a3e57;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  animation: aparecer 1s ease-in-out;
+}
+
+/* Setinha do balão */
+.balao-fala::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  right: 50px;
+  border-width: 15px 10px 0;
+  border-style: solid;
+  border-color: #fff0f5 transparent transparent transparent;
+  filter: drop-shadow(0 -1px 0 #f3b6d0);
+}
+
+/* Botão dentro do balão */
+.balao-btn {
+  /*margin-top: 8px;*/
+  margin-bottom: 8px;
+  padding: 8px 16px;
+  background-color: #f3b6d0;
+  color: #6a2b49;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.balao-btn:hover {
+  background-color: #f08ab4;
+  transform: scale(1.05);
+}
+
+/* Animação aparecer */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
