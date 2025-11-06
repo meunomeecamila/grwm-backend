@@ -138,6 +138,8 @@ public class Aplicacao {
             String senha = req.queryParams("senha");
 
             Usuario u = new Usuario(username, senha);
+
+            // ✅ agora passa pelo Service, que faz o hash com BCrypt
             boolean ok = usuarioService.cadastrar(u);
 
             if (ok) {
@@ -154,11 +156,15 @@ public class Aplicacao {
             String username = req.queryParams("username");
             String senha = req.queryParams("senha");
 
-            Usuario usuario = usuarioService.getByUsernameAndSenha(username, senha);
+            // ✅ agora usa autenticação segura (BCrypt)
+            boolean autenticado = usuarioService.autenticar(username, senha);
 
             res.type("application/json");
 
-            if (usuario != null) {
+            if (autenticado) {
+                // Recupera o usuário completo pra enviar o ID
+                Usuario usuario = usuarioService.getByUsername(username);
+
                 res.status(200);
                 return "{\"id\": " + usuario.getId() + ", \"username\": \"" + usuario.getUsername() + "\"}";
             } else {
@@ -166,6 +172,7 @@ public class Aplicacao {
                 return "{\"message\": \"Usuário ou senha incorretos.\"}";
             }
         });
+
 
         // ===================== ROTA DE PERFIL =====================
         get("/usuario/:id", (req, res) -> {
