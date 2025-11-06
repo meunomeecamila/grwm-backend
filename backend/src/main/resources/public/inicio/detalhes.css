@@ -1,0 +1,162 @@
+/* --- Estilos Globais e Fundo --- */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7e9ea; /* Rosa bem claro, similar ao da imagem */
+    display: flex; /* Para centralizar o conteúdo principal */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Garante que o corpo ocupe toda a altura da viewport */
+    flex-direction: column; /* Para empilhar topbar e content-container */
+}
+
+/* --- Topbar (Cabeçalho) --- */
+.topbar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+    background-color: transparent; /* Se for só o título */
+    position: absolute; /* Para ficar no topo sem afetar o layout principal */
+    top: 0;
+    left: 0;
+}
+
+.topbar .titulo {
+    max-width: 100px; /* Ajuste o tamanho do seu logo se necessário */
+    height: auto;
+}
+
+/* --- Botão de Voltar --- */
+#back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    color: #a0525d; /* Cor mais escura para o ícone */
+    text-decoration: none;
+    z-index: 10; /* Para garantir que fique acima de outros elementos */
+}
+
+/* --- Container Principal do Conteúdo (o "Card") --- */
+.content-container {
+    background-color: #fff; /* Fundo branco para o card */
+    border-radius: 15px; /* Bordas arredondadas */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    display: flex; /* Para colocar imagem e detalhes lado a lado */
+    max-width: 800px; /* Largura máxima do card */
+    width: 90%; /* Ocupa 90% da largura disponível, mas não mais que 800px */
+    overflow: hidden; /* Garante que nada saia das bordas arredondadas */
+    margin-top: 80px; /* Espaço para o topbar */
+    margin-bottom: 20px;
+}
+
+/* --- Seção da Imagem --- */
+.image-section {
+    flex: 1; /* Ocupa espaço flexível */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9; /* Um fundo leve para a imagem */
+}
+
+.image-section img {
+    max-width: 100%;
+    max-height: 300px; /* Altura máxima para a imagem */
+    border-radius: 10px; /* Leve arredondamento na imagem */
+    object-fit: contain; /* Garante que a imagem se ajuste sem cortar */
+}
+
+/* --- Seção de Detalhes --- */
+.details-section {
+    flex: 1; /* Ocupa espaço flexível */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinha o conteúdo ao topo */
+}
+
+.details-section .item-nome {
+    font-size: 2.2em;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.details-section p {
+    margin-bottom: 8px; /* Espaço entre os parágrafos */
+    font-size: 1.1em;
+    color: #555;
+    display: flex; /* Para alinhar o span e o texto */
+}
+
+.details-section p span {
+    font-weight: bold;
+    color: #a0525d; /* Cor mais escura para os rótulos (Cor:, Categoria:, etc.) */
+    min-width: 90px; /* Garante que os rótulos tenham largura mínima para alinhamento */
+    margin-right: 5px;
+}
+
+/* Estilo para a descrição, que tem Comentário: no span */
+.details-section .item-descricao span {
+    font-weight: bold;
+    color: #a0525d; /* Mesma cor para o rótulo "Comentário:" */
+    min-width: 90px;
+    margin-right: 5px;
+}
+
+
+/* --- Botão Adquirir --- */
+.btn-adquirir {
+    background-color: #d17a86; /* Cor rosa do botão */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: auto; /* Empurra o botão para o final da seção */
+    align-self: flex-end; /* Alinha o botão à direita dentro da coluna */
+    transition: background-color 0.3s ease;
+}
+
+.btn-adquirir:hover {
+    background-color: #a0525d; /* Cor mais escura ao passar o mouse */
+}
+
+/* --- Ícone de Compartilhar (assumindo que seja um <a> com um <i>) --- */
+.share-icon {
+    position: absolute; /* Para posicioná-lo no canto superior direito do card */
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    color: #a0525d;
+    cursor: pointer;
+    text-decoration: none; /* Se for um link */
+}
+
+
+/* --- Media Queries para Responsividade (Opcional, mas recomendado) --- */
+@media (max-width: 768px) {
+    .content-container {
+        flex-direction: column; /* Empilha imagem e detalhes em telas menores */
+        width: 95%;
+        margin-top: 60px;
+    }
+
+    .image-section {
+        padding: 15px;
+    }
+
+    .details-section {
+        padding: 20px;
+    }
+
+    .share-icon {
+        top: 15px;
+        right: 15px;
+    }
+}
